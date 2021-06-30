@@ -28,7 +28,7 @@ jobs:
       - attach_workspace:
           at: ~/vidalog
       - run : apt-get update
-      - run : apt-get install curl
+      - run : apt-get install apt-transport-https
               
       - run: |
           docker build -t yongwon0824/vidalog-frontend:latest .
