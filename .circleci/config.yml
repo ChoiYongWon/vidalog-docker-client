@@ -35,7 +35,9 @@ jobs:
       - run : apt-get install -y lsb-release
       - run : curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
       - run : apt-get update
-      - run : apt-get install docker-ce docker-ce-cli containerd.io
+      - run : apt-get install docker-ce
+      - run : apt-get install docker-ce-cli
+      - run : apt-get install containerd.io
       - run: |
           docker build -t yongwon0824/vidalog-frontend:latest .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
