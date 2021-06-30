@@ -27,7 +27,7 @@ jobs:
           
       - attach_workspace:
           at: ~/vidalog
-      - run: apk add docker-cli
+
       - run: |
           docker build -t yongwon0824/vidalog-frontend:latest .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
