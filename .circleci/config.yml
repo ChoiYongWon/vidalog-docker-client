@@ -29,7 +29,13 @@ jobs:
           at: ~/vidalog
       - run : apt-get update
       - run : apt-get install apt-transport-https
-              
+      - run : apt-get install ca-certificates
+      - run : apt-get install curl
+      - run : apt-get install gnupg
+      - run : apt-get install lsb-release
+      - run : curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+      - run : apt-get update
+      - run : apt-get install docker-ce docker-ce-cli containerd.io
       - run: |
           docker build -t yongwon0824/vidalog-frontend:latest .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
