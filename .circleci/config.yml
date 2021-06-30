@@ -8,35 +8,30 @@ jobs:
     working_directory: ~/vidalog
     steps:
       - checkout
-      - run: ls
-      - run: npm i -g @nestjs/cli
       - run: yarn
-      - run: ls
-      - run: pwd
       - run: yarn run build
-      - run: ls
       - persist_to_workspace:
           root: ~/vidalog
           paths:
-            - dist
+            - build
             - node_modules
       - run: echo "BUILD SUCCESS"
   docker-build-and-push:
-    executor: docker/docker
+    docker:
+      - image: nginx:latest
     working_directory: ~/vidalog
     steps:
-      - setup_remote_docker
       - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+          
       - attach_workspace:
           at: ~/vidalog
-      - docker/check
-      - docker/build:
-          image: yongwon0824/vidalog-backend
-          tag: latest
-      - docker/push:
-          image: yongwon0824/vidalog-backend
-          tag: latest
-      - run: echo "SUCCESS"
+      - run : yum install
+      - run: |
+          docker build -t yongwon0824/vidalog-frontend:latest .
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
+          docker push yongwon0824/vidalog-frontend:latest
   deploy:
     machine: true
     steps:
