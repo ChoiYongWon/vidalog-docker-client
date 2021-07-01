@@ -4,6 +4,6 @@ COPY build /usr/share/nginx/html
 
 # COPY nginx.conf /etc/nginx/nginx.conf
 
-ENTRYPOINT ["echo","SUCCESS"]
+ENTRYPOINT ["nginx"]
 
 EXPOSE 80
