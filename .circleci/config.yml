@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
 
-  nest-build:
+  react-build:
     docker:
       - image: node:latest
     working_directory: ~/vidalog
@@ -52,17 +52,14 @@ jobs:
       - checkout
       - run: ssh ec2-user@54.180.166.3 ./deploy-frontend.sh
   
-orbs:
-  docker: circleci/docker@1.6.0
-  
 workflows:
   version: 2.1
   build:
     jobs:
-      - nest-build
+      - react-build
       - docker-build-and-push:
           requires:
-            - nest-build
+            - react-build
           context:
             - DOCKER
       - deploy:
