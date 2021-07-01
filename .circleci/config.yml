@@ -14,7 +14,6 @@ jobs:
           root: ~/vidalog
           paths:
             - build
-            - node_modules
       - run: echo "BUILD SUCCESS"
   docker-build-and-push:
     docker:
@@ -24,9 +23,12 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 19.03.13
-          
+      - run : ls
+      - run : pwd
       - attach_workspace:
           at: ~/vidalog
+      - run : ls
+      - run : pwd
       - run : cat /etc/issue
       - run : apt-get update
       - run : apt-get install apt-transport-https
