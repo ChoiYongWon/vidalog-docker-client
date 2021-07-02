@@ -2,7 +2,7 @@ FROM nginx
 
 COPY build/ /usr/share/nginx/html
 
-# COPY .nginx/nginx.conf /etc/nginx/conf.d
+COPY .nginx/default.conf /etc/nginx/conf.d/default.conf
 
 RUN ["cat","/etc/nginx/conf.d/default.conf"]
 
