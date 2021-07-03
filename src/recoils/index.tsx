@@ -1,7 +1,7 @@
 import {
-    auth
+    authenticate,
 } from "./auth"
 
-export {
-    auth
+export const Auth = {
+    authenticate,
 }

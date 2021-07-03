@@ -1,22 +1,22 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
+import {role} from "../recoils/auth"
+import {useRecoilValue} from "recoil";
 
-interface Props {
-    authenticate : boolean
+type Props = {
+    role : number[]
+    path : string
 }
 
   const HomeRouter = (props: Props) => {
 
-    const history = useHistory()
-    
+      const myRole = useRecoilValue(role)
 
-    return (
-            <>
-                {
-                    (props.authenticate) ? 'HELLO HOME' : history.push("/auth")
-                }
-            </>
-    )
+      return (
+          <Route exact path={props.path} render={
+              ()=>props.role.includes(myRole) ? <>HELLO MAIN</> : <Redirect to={"/auth"}/>
+          }/>
+      )
   }
 
   export default HomeRouter

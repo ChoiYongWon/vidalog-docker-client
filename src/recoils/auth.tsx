@@ -1,6 +1,12 @@
 import {atom} from "recoil"
+import {Auth, Role} from "../types/Auth";
 
-export const auth = atom<boolean>({
+export const authenticate = atom<number>({
     key : "auth",
-    default : false,
+    default : Auth.LOGOUT,
+})
+
+export const role = atom<number>({
+    key : "role",
+    default : Role.GUEST,
 })

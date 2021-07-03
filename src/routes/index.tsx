@@ -1,20 +1,20 @@
 
-import { Switch, Route } from "react-router-dom";
+import {Switch, BrowserRouter as Router} from "react-router-dom";
 import HomeRouter from "./home"
-import { useRecoilValue } from "recoil";
-import { auth } from "../recoils/index"
+import AuthRouter from "./auth";
+import React from "react";
+import {Role} from "../types/Auth";
 
 
 export const RouterIndex = () => {
 
-  const isAuthenticate = useRecoilValue(auth)
-
   return (
-    <Switch>
-      <Route path="/">
-        <HomeRouter authenticate={isAuthenticate}></HomeRouter>
-      </Route>
-      
-    </Switch>
+      <Router>
+        <Switch>
+            <AuthRouter path={"/auth"} role={[Role.GUEST]}></AuthRouter>
+            <HomeRouter path={"/"} role={[Role.USER]}></HomeRouter>
+        </Switch>
+      </Router>
+
   )
 }
