@@ -119,15 +119,16 @@ const AuthForm = (props : Props) => {
                                              onClick={props.onClickLoginBtn}>
                                 </LoginButton>
 
-                                <MenuWrapper>
 
-                                    <Menu onClick={props.onClickFindBtn}>계정을 잊으셨나요?</Menu>
-
-                                    <Menu onClick={props.onClickRegisterBtn}>회원가입</Menu>
-
-
-                                </MenuWrapper>
                             </LoginForm>
+                            <MenuWrapper>
+
+                                <Menu onClick={props.onClickFindBtn}>계정을 잊으셨나요?</Menu>
+
+                                <Menu onClick={props.onClickRegisterBtn}>회원가입</Menu>
+
+
+                            </MenuWrapper>
                         </>
                         :
                         (props.status===Status.Find) ?
