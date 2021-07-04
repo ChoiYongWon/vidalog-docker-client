@@ -1,20 +1,16 @@
 import AuthForm from "../../components/Auth/AuthForm"
 import AuthLayout from "../../layouts/Auth";
 import React, {useEffect, useState} from "react";
+import {Enum_AuthStatus, Enum_RegisterProgress} from "../../types/Auth";
 
 const AuthContainer = () => {
-
-    enum Status {
-        Login,
-        Register,
-        Find
-    }
 
 
     const [id, setId] = useState("")
     const [pw, setPw] = useState("")
     const [loginBtnStatus, setLoginBtnStatus] = useState(false)
-    const [status, setStatus] = useState(Status.Login)
+    const [status, setStatus] = useState<Enum_AuthStatus>(Enum_AuthStatus.Login)
+    // const [registerStatus, setRegisterStatus] = useState<Enum_RegisterProgress>(Enum_RegisterProgress.EMAIL)
 
     useEffect(()=>{
         if(id !== "" && pw !== "") setLoginBtnStatus(true)
@@ -35,11 +31,11 @@ const AuthContainer = () => {
     }
 
     const onClickFindBtn = () => {
-        setStatus(Status.Find)
+        setStatus(Enum_AuthStatus.Find)
     }
 
     const onClickRegisterBtn = () => {
-        setStatus(Status.Register)
+        setStatus(Enum_AuthStatus.Register)
     }
 
     return (
@@ -52,7 +48,9 @@ const AuthContainer = () => {
                           setLoginBtnStatus={setLoginBtnStatus}
                           onClickLoginBtn={onClickLoginBtn}
                           onClickFindBtn={onClickFindBtn}
-                          onClickRegisterBtn={onClickRegisterBtn}/>
+                          onClickRegisterBtn={onClickRegisterBtn}
+                          registerStatus={Enum_RegisterProgress.EMAIL}
+                />
 
             </AuthLayout>
 

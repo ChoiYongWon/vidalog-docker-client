@@ -5,8 +5,15 @@ const Container = styled.div`
   display : flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width : 100vw;
-  height : 100vh;
+  height : auto;
+  gap : 1rem;
+  padding : 5rem 0;
+  box-sizing: border-box;
+  @media(max-width: 500px){
+    justify-content: flex-start;
+  }
 `
 
 type AuthProps = {
