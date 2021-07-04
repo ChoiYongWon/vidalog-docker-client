@@ -50,7 +50,14 @@ const Button = styled.input.attrs(props => ({
 `
 
 type Props = {
+    emailStatus : emailStatusType
+    onClickEmailSubmitBtn : (e: React.FormEvent<HTMLInputElement>)=> void
+}
 
+type emailStatusType = {
+    availableEmail : boolean
+    checking : boolean
+    checked : boolean
 }
 
 
@@ -60,7 +67,10 @@ const EmailForm = (props : Props) => {
                 <Text>이메일을 입력해주세요</Text>
                 <Form>
                     <Input placeholder={"이메일"} type={"text"}/>
-                    <Button status={true} value={"완료"}/>
+                    {
+                        props.emailStatus.checking ? <Input placeholder={"인증번호"} type={"text"}/> : null
+                    }
+                    <Button status={true} onClick={props.onClickEmailSubmitBtn} value={"완료"}/>
                 </Form>
             </>
     )

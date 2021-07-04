@@ -5,12 +5,23 @@ import {Enum_AuthStatus, Enum_RegisterProgress} from "../../types/Auth";
 
 const AuthContainer = () => {
 
+    type emailStatusType = {
+        availableEmail : boolean
+        checking : boolean
+        checked : boolean
+    }
+
 
     const [id, setId] = useState("")
     const [pw, setPw] = useState("")
     const [loginBtnStatus, setLoginBtnStatus] = useState(false)
     const [status, setStatus] = useState<Enum_AuthStatus>(Enum_AuthStatus.Login)
-    // const [registerStatus, setRegisterStatus] = useState<Enum_RegisterProgress>(Enum_RegisterProgress.EMAIL)
+    const [registerStatus, setRegisterStatus] = useState<Enum_RegisterProgress>(Enum_RegisterProgress.EMAIL)
+    const [emailStatus, setEmailStatus] = useState<emailStatusType>({
+        availableEmail : true,
+        checking : false,
+        checked : false
+    })
 
     useEffect(()=>{
         if(id !== "" && pw !== "") setLoginBtnStatus(true)
@@ -38,6 +49,22 @@ const AuthContainer = () => {
         setStatus(Enum_AuthStatus.Register)
     }
 
+    const onClickEmailSubmitBtn = (e : React.FormEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        if(!emailStatus.availableEmail) return
+        if(!emailStatus.checking){
+            setEmailStatus((prev : emailStatusType)=>{
+                const state = {...emailStatus}
+                state.checking = true
+                return state
+            })
+            return
+        }
+        //임시 코드
+        setRegisterStatus(Enum_RegisterProgress.ID)
+        //이메일 인증번호 체킹
+    }
+
     return (
 
             <AuthLayout>
@@ -49,7 +76,9 @@ const AuthContainer = () => {
                           onClickLoginBtn={onClickLoginBtn}
                           onClickFindBtn={onClickFindBtn}
                           onClickRegisterBtn={onClickRegisterBtn}
-                          registerStatus={Enum_RegisterProgress.EMAIL}
+                          registerStatus={registerStatus}
+                          emailStatus={emailStatus}
+                          onClickEmailSubmitBtn={onClickEmailSubmitBtn}
                 />
 
             </AuthLayout>

@@ -58,10 +58,11 @@ type Props = {
 const PwForm = (props : Props) => {
     return (
         <>
-            <Text>이메일을 입력해주세요</Text>
+            <Text>비밀번호를 입력해주세요</Text>
             <Form>
-                <Input placeholder={"이메일"} type={"text"}/>
-                <Button status={true} value={"로그인"}/>
+                <Input placeholder={"비밀번호"} type={"text"}/>
+                <Input placeholder={"비밀번호 확인"} type={"text"}/>
+                <Button status={true} value={"확인"}/>
             </Form>
         </>
     )

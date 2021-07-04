@@ -1,8 +1,14 @@
 import React from "react"
 import LoginForm from "../LoginForm";
 import RegisterProgress from "../RegisterProgress";
-import {Enum_AuthStatus} from "../../../types/Auth";
+import {Enum_AuthStatus, Enum_RegisterProgress} from "../../../types/Auth";
 import RegisterForm from "../RegisterForm";
+
+type emailStatusType = {
+    availableEmail : boolean
+    checking : boolean
+    checked : boolean
+}
 
 type Props = {
     status : number
@@ -14,7 +20,9 @@ type Props = {
     onClickFindBtn : () => void
     onClickRegisterBtn : () => void
 
-    registerStatus : number
+    registerStatus : Enum_RegisterProgress
+    emailStatus : emailStatusType
+    onClickEmailSubmitBtn : (e : React.FormEvent<HTMLInputElement>) => void
 }
 
 
@@ -40,7 +48,11 @@ const AuthForm = (props : Props) => {
                         :
                         <>
                             <RegisterProgress status={props.registerStatus}/>
-                            <RegisterForm/>
+                            <RegisterForm
+                                registerStatus={props.registerStatus}
+                                emailStatus={props.emailStatus}
+                                onClickEmailSubmitBtn={props.onClickEmailSubmitBtn}
+                            />
                         </>
 
 

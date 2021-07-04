@@ -41,7 +41,6 @@ const Button = styled.input.attrs(props => ({
   background: ${(props: ButtonProps) => props.status ? "#81CFD1;" : "#AEDFE1;"};
   border-radius: 5px;
   border : none;
-  margin-bottom: 5.5rem;
   color : white;
   font-size : 0.75rem;
   display : flex;
@@ -58,10 +57,10 @@ type Props = {
 const IdForm = (props : Props) => {
     return (
         <>
-            <Text>이메일을 입력해주세요</Text>
+            <Text>아이디를 입력해주세요</Text>
             <Form>
-                <Input placeholder={"이메일"} type={"text"}/>
-                <Button status={true} value={"로그인"}/>
+                <Input placeholder={"아이디"} type={"text"}/>
+                <Button status={true} value={"확인"}/>
             </Form>
         </>
     )

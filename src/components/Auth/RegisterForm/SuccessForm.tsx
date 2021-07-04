@@ -1,44 +1,24 @@
 import React from "react"
 import styled from "styled-components";
+import Success from "../../../img/success.png"
 
-
+const SuccessImg = styled.img`
+  width : 33%;
+  height : auto;
+  margin-bottom: 2rem;
+`
 
 const Text = styled.p`
-  font-size : 1rem;
+  font-size : 1.125rem;
   font-weight : bold;
   color : #707070;
 `
-const Form = styled.form`
-  width : 100%;
-  height : auto;
-  display : flex;
-  flex-direction: column;
-  align-items: center;
-`
 
-const Input = styled.input`
+
+const Button = styled.button`
   width : 70%;
   height : 2.2rem;
-  background: #ffffff;
-  border : 0;
-  border-bottom : 2px solid #63C2C6;
-  margin-bottom: 1rem;
-  padding : 0.5rem;
-  box-sizing: border-box;
-  outline: none;
-  font-size : 0.75rem;
-`
-
-type ButtonProps = {
-    status : boolean
-}
-
-const Button = styled.input.attrs(props => ({
-    type: "submit",
-}))`
-  width : 70%;
-  height : 2.2rem;
-  background: ${(props: ButtonProps) => props.status ? "#81CFD1;" : "#AEDFE1;"};
+  background: #81CFD1;
   border-radius: 5px;
   border : none;
   margin-bottom: 5.5rem;
@@ -58,11 +38,9 @@ type Props = {
 const SuccessForm = (props : Props) => {
     return (
         <>
-            <Text>이메일을 입력해주세요</Text>
-            <Form>
-                <Input placeholder={"이메일"} type={"text"}/>
-                <Button status={true} value={"로그인"}/>
-            </Form>
+            <Text>회원가입이 완료되었습니다.</Text>
+            <SuccessImg src={Success}/>
+            <Button value={"확인"}/>
         </>
     )
 }
