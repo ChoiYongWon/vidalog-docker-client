@@ -55,7 +55,7 @@ const LoginButton = styled.input.attrs(props => ({
 }))`
   width : 70%;
   height : 2.2rem;
-  background: ${(props: ButtonProps) => props.status ? "#81CFD1;" : "#AEDFE1;"};
+  background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
   border-radius: 5px;
   border : none;
   margin-bottom: 5.5rem;
@@ -86,10 +86,11 @@ const Menu = styled.button`
 `
 
 type Props = {
+    id: string
+    pw : string
     onChangeId : (e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
     onChangePw : (e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
     loginBtnStatus : boolean
-    setLoginBtnStatus : (status : boolean) => void
     onClickLoginBtn : (e : React.FormEvent<HTMLInputElement>) => void
     onClickFindBtn : () => void
     onClickRegisterBtn : () => void
@@ -102,8 +103,8 @@ const LoginForm = (props : Props) => {
             <>
                 <LogoImg src={Logo}/>
                 <Form>
-                    <Input placeholder={"아이디"} onChange={props.onChangeId} type={"text"}/>
-                    <Input placeholder={"비밀번호"} onChange={props.onChangePw} type={"password"}/>
+                    <Input placeholder={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
+                    <Input placeholder={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
                     <LoginButton status={props.loginBtnStatus} value={"로그인"}
                                  onClick={props.onClickLoginBtn}>
                     </LoginButton>

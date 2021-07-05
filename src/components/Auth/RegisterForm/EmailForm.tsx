@@ -38,7 +38,7 @@ const Button = styled.input.attrs(props => ({
 }))`
   width : 70%;
   height : 2.2rem;
-  background: ${(props: ButtonProps) => props.status ? "#81CFD1;" : "#AEDFE1;"};
+  background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
   border-radius: 5px;
   border : none;
   color : white;
@@ -50,14 +50,13 @@ const Button = styled.input.attrs(props => ({
 `
 
 type Props = {
-    emailStatus : emailStatusType
-    onClickEmailSubmitBtn : (e: React.FormEvent<HTMLInputElement>)=> void
-}
-
-type emailStatusType = {
+    email : string
     availableEmail : boolean
-    checking : boolean
-    checked : boolean
+    authorization : boolean
+    emailBtnStatus : boolean
+    onClickEmailSubmitBtn : (e: React.FormEvent<HTMLInputElement>)=> void
+    onChangeEmail : (e : React.ChangeEvent<HTMLInputElement>) => void
+    onChangeCode : (e : React.ChangeEvent<HTMLInputElement>) => void
 }
 
 
@@ -66,11 +65,11 @@ const EmailForm = (props : Props) => {
             <>
                 <Text>이메일을 입력해주세요</Text>
                 <Form>
-                    <Input placeholder={"이메일"} type={"text"}/>
+                    <Input placeholder={"이메일"} onChange={props.onChangeEmail} value={props.email} type={"text"}/>
                     {
-                        props.emailStatus.checking ? <Input placeholder={"인증번호"} type={"text"}/> : null
+                        props.authorization ? <Input placeholder={"인증번호"} onChange={props.onChangeCode} type={"text"}/> : null
                     }
-                    <Button status={true} onClick={props.onClickEmailSubmitBtn} value={"완료"}/>
+                    <Button status={props.emailBtnStatus} onClick={props.onClickEmailSubmitBtn} value={"완료"}/>
                 </Form>
             </>
     )

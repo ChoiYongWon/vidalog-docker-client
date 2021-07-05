@@ -38,7 +38,7 @@ const Button = styled.input.attrs(props => ({
 }))`
   width : 70%;
   height : 2.2rem;
-  background: ${(props: ButtonProps) => props.status ? "#81CFD1;" : "#AEDFE1;"};
+  background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
   border-radius: 5px;
   border : none;
   color : white;
@@ -49,8 +49,16 @@ const Button = styled.input.attrs(props => ({
   outline: 0;
 `
 
-type Props = {
+export type idStatusType = {
 
+}
+
+type Props = {
+    id : string
+    idBtnStatus : boolean
+    idAvailable : boolean
+    onClickIdSubmitBtn : (e : React.FormEvent<HTMLInputElement>) => void
+    onChangeId : (e : React.ChangeEvent<HTMLInputElement>) => void
 }
 
 
@@ -59,8 +67,8 @@ const IdForm = (props : Props) => {
         <>
             <Text>아이디를 입력해주세요</Text>
             <Form>
-                <Input placeholder={"아이디"} type={"text"}/>
-                <Button status={true} value={"확인"}/>
+                <Input placeholder={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
+                <Button status={props.idBtnStatus} onClick={props.onClickIdSubmitBtn} value={"확인"}/>
             </Form>
         </>
     )

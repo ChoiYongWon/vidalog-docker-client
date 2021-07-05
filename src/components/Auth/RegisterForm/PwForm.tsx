@@ -38,10 +38,9 @@ const Button = styled.input.attrs(props => ({
 }))`
   width : 70%;
   height : 2.2rem;
-  background: ${(props: ButtonProps) => props.status ? "#81CFD1;" : "#AEDFE1;"};
+  background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
   border-radius: 5px;
   border : none;
-  margin-bottom: 5.5rem;
   color : white;
   font-size : 0.75rem;
   display : flex;
@@ -51,8 +50,17 @@ const Button = styled.input.attrs(props => ({
 `
 
 type Props = {
+    pw : string
+    rePw : string
+    availablePw : boolean
+    isEqual : boolean
+    onClickPwSubmitBtn : (e: React.FormEvent<HTMLInputElement>)=> void
+    onChangePw : (e:React.ChangeEvent<HTMLInputElement>) => void
+    onChangeRePw : (e:React.ChangeEvent<HTMLInputElement>) => void
+    pwBtnStatus : boolean
 
 }
+
 
 
 const PwForm = (props : Props) => {
@@ -60,9 +68,9 @@ const PwForm = (props : Props) => {
         <>
             <Text>비밀번호를 입력해주세요</Text>
             <Form>
-                <Input placeholder={"비밀번호"} type={"text"}/>
-                <Input placeholder={"비밀번호 확인"} type={"text"}/>
-                <Button status={true} value={"확인"}/>
+                <Input placeholder={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
+                <Input placeholder={"비밀번호 확인"} value={props.rePw} onChange={props.onChangeRePw} type={"password"}/>
+                <Button status={props.pwBtnStatus} onClick={props.onClickPwSubmitBtn} value={"확인"}/>
             </Form>
         </>
     )

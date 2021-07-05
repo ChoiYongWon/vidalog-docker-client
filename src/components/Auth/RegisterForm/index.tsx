@@ -1,8 +1,11 @@
 import React from "react"
 import styled from "styled-components";
 import {Enum_RegisterProgress} from "../../../types/Auth";
-import EmailForm from "./EmailForm";
-import IdForm from "./IdForm";
+
+import EmailFormContainer from "../../../containers/Auth/RegisterForm/EmailFormContainer";
+import PwFormCointainer from "../../../containers/Auth/RegisterForm/PwFormCointainer";
+import IdFormContainer from "../../../containers/Auth/RegisterForm/IdFormContainer";
+import SuccessFormContainer from "../../../containers/Auth/RegisterForm/SuccessFormContainer";
 
 const Wrapper = styled.div`
   max-width : 350px;
@@ -23,14 +26,6 @@ const Wrapper = styled.div`
 
 type Props = {
     registerStatus : Enum_RegisterProgress
-    emailStatus : emailStatusType
-    onClickEmailSubmitBtn : (e:React.FormEvent<HTMLInputElement>)=>void
-}
-
-type emailStatusType = {
-    availableEmail : boolean
-    checking : boolean
-    checked : boolean
 }
 
 
@@ -39,14 +34,11 @@ const RegisterForm = (props : Props) => {
         <Wrapper>
             {
                 (props.registerStatus===Enum_RegisterProgress.EMAIL) ?
-                    <EmailForm
-                        emailStatus={props.emailStatus}
-                        onClickEmailSubmitBtn={props.onClickEmailSubmitBtn}
-                    /> :
+                    <EmailFormContainer/> :
                 (props.registerStatus===Enum_RegisterProgress.ID) ?
-                    <IdForm/>
-                    :
-                    null
+                    <IdFormContainer/> :
+                (props.registerStatus===Enum_RegisterProgress.PW) ?
+                    <PwFormCointainer/> : <SuccessFormContainer/>
 
             }
 

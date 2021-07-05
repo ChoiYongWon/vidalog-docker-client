@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react"
 import styled from "styled-components"
+import {Enum_RegisterProgress} from "../../../types/Auth";
 
-type Props = {
-    status : number
-}
 
 const Wrapper = styled.div`
   width : 100%;
@@ -18,7 +16,6 @@ const Wrapper = styled.div`
     grid-template-rows: repeat(2, 40px);
   }
 `
-
 type ProgressProps = {
     enable : boolean
 }
@@ -75,6 +72,11 @@ const Bar = styled.div`
   box-sizing: border-box;
 `
 
+
+type Props = {
+    status : Enum_RegisterProgress
+}
+
 const RegisterProgress = (props : Props) => {
 
     const [indicator, setIndicator] = useState([false, false, false, false])
@@ -84,7 +86,6 @@ const RegisterProgress = (props : Props) => {
             const prev = [...state]
             return prev.fill(true,0, props.status+1)
         })
-        console.log(props.status)
     },[props.status])
 
 
