@@ -56,14 +56,23 @@ workflows:
   version: 2.1
   build:
     jobs:
-      - react-build
+      - react-build:
+          filters:
+            branches:
+              only: master
       - docker-build-and-push:
           requires:
             - react-build
           context:
             - DOCKER
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - docker-build-and-push
           context:
             - AWS
+          filters:
+            branches:
+              only: master
