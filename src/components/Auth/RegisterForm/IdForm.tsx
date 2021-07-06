@@ -24,7 +24,7 @@ type ButtonProps = {
 const Button = styled.input.attrs(props => ({
     type: "submit",
 }))`
-  width : 70%;
+  width : 75%;
   height : 2.2rem;
   background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
   border-radius: 5px;
@@ -58,7 +58,7 @@ const IdForm = (props : Props) => {
         <>
             <Text>아이디를 입력해주세요</Text>
             <Form>
-                <InputText autoFocus={true} width={"70%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
+                <InputText autoFocus={true} width={"75%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
                 <Button status={props.idBtnStatus} onClick={props.onClickIdSubmitBtn} value={"확인"}/>
             </Form>
         </>

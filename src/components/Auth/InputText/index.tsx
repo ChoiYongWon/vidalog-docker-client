@@ -90,7 +90,7 @@ export type Props = {
 const InputText = (props : Props) => {
 
     const [isTyping, setIsTyping] = useState(false)
-    const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>
+    const inputRef = useRef(null) as React.MutableRefObject<HTMLInputElement>
 
     useEffect(()=>{
         if(props.autoFocus){

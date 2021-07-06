@@ -18,7 +18,7 @@ const Text = styled.p`
 const Button = styled.input.attrs(props => ({
     type: "submit",
 }))`
-  width : 70%;
+  width : 75%;
   height : 2.2rem;
   background: #63C2C6;
   border-radius: 5px;

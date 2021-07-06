@@ -42,7 +42,7 @@ type ButtonProps = {
 const LoginButton = styled.input.attrs(props => ({
     type: "submit",
 }))`
-  width : 70%;
+  width : 75%;
   height : 2.2rem;
   background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
   border-radius: 5px;
@@ -59,7 +59,7 @@ const LoginButton = styled.input.attrs(props => ({
 
 const MenuWrapper = styled.div`
   display : flex;
-  width : 70%;
+  width : 75%;
   justify-content: space-between;
   
 `
@@ -93,8 +93,8 @@ const LoginForm = (props : Props) => {
             <>
                 <LogoImg src={Logo}/>
                 <Form>
-                    <InputText autoFocus={true} width={"70%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
-                    <InputText width={"70%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
+                    <InputText autoFocus={true} width={"75%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
+                    <InputText width={"75%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
                     <LoginButton status={props.loginBtnStatus} value={"로그인"}
                                  onClick={props.onClickLoginBtn}>
                     </LoginButton>

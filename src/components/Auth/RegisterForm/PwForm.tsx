@@ -24,7 +24,7 @@ type ButtonProps = {
 const Button = styled.input.attrs(props => ({
     type: "submit",
 }))`
-  width : 70%;
+  width : 75%;
   height : 2.2rem;
   background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
   border-radius: 5px;
@@ -59,8 +59,8 @@ const PwForm = (props : Props) => {
         <>
             <Text>비밀번호를 입력해주세요</Text>
             <Form>
-                <InputText error={props.pwError} errorMsg={props.pwErrorMsg} autoFocus={true} width={"70%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
-                <InputText error={props.rePwError} errorMsg={props.rePwErrorMsg} width={"70%"} label={"비밀번호 확인"} value={props.rePw} onChange={props.onChangeRePw} type={"password"}/>
+                <InputText error={props.pwError} errorMsg={props.pwErrorMsg} autoFocus={true} width={"75%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
+                <InputText error={props.rePwError} errorMsg={props.rePwErrorMsg} width={"75%"} label={"비밀번호 확인"} value={props.rePw} onChange={props.onChangeRePw} type={"password"}/>
                 <Button status={props.pwBtnStatus} onClick={props.onClickPwSubmitBtn} value={"확인"}/>
             </Form>
         </>

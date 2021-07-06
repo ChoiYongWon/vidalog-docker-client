@@ -23,7 +23,7 @@ type ButtonProps = {
 const Button = styled.input.attrs(props => ({
     type: "submit",
 }))`
-  width : 70%;
+  width : 75%;
   height : 2.2rem;
   background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
   border-radius: 5px;
@@ -57,9 +57,9 @@ const EmailForm = (props : Props) => {
             <>
                 <Text>이메일을 입력해주세요</Text>
                 <Form>
-                    <InputText error={props.emailError} errorMsg={props.emailErrorMsg} autoFocus={true} width={"70%"} label={"이메일"} onChange={props.onChangeEmail} value={props.email} type={"text"}/>
+                    <InputText error={props.emailError} errorMsg={props.emailErrorMsg} autoFocus={true} width={"75%"} label={"이메일"} onChange={props.onChangeEmail} value={props.email} type={"text"}/>
                     {
-                        props.authorization ? <InputText error={props.codeError} errorMsg={props.codeErrorMsg} autoFocus={true} width={"70%"} label={"인증번호"} onChange={props.onChangeCode} value={props.authCode} type={"text"}/> : null
+                        props.authorization ? <InputText error={props.codeError} errorMsg={props.codeErrorMsg} autoFocus={true} width={"75%"} label={"인증번호"} onChange={props.onChangeCode} value={props.authCode} type={"text"}/> : null
                     }
                     <Button status={props.emailBtnStatus} onClick={props.onClickEmailSubmitBtn} value={"완료"}/>
                 </Form>
