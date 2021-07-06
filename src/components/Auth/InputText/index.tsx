@@ -23,10 +23,10 @@ const Label = styled.span`
   line-height: 2.2rem;
   font-size : 0.75rem;
   color : rgb(142,142,142);
-  transition : all ease .15s;
+  transition : all ease .1s;
   transform-origin: left;
   z-index: 30;
-  transform: ${(props: LabelPropsType) => props.typing ? "scale(0.8333) translateY(-0.75rem);" : "scale(1) translateY(0);"};
+  transform: ${(props: LabelPropsType) => props.typing ? "scale(0.8333) translateY(-0.85rem);" : "scale(1) translateY(0);"};
 `
 
 type ErrorMsgType = {

@@ -1,4 +1,4 @@
-import React from "react"
+import React, {memo} from "react"
 import styled from "styled-components";
 import InputText from "../InputText";
 
@@ -67,4 +67,4 @@ const EmailForm = (props : Props) => {
     )
 }
 
-export default EmailForm
+export default memo(EmailForm)

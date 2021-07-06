@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {recoil_Auth} from "../../../recoils/";
 import EmailForm from "../../../components/Auth/RegisterForm/EmailForm";
@@ -41,15 +41,15 @@ const EmailFormContainer = () => {
     }
 
 
-    const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value)
-    }
+    },[setEmail])
 
-    const onChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeCode = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setAuthCode(e.target.value)
-    }
+    },[setAuthCode])
 
-    const onClickEmailSubmitBtn = (e : React.FormEvent<HTMLInputElement>) => {
+    const onClickEmailSubmitBtn = useCallback((e : React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
         if(!emailBtnStatus) return
 
@@ -81,7 +81,7 @@ const EmailFormContainer = () => {
             setRegisterStatus(Enum_RegisterProgress.ID)
         }
         //이메일 인증번호 체킹
-    }
+    },[emailAuthorization, emailBtnStatus, setEmailErrorObj, setAuthCodeErrorObj, email, setEmailAvailable, setEmailAuthorization, setCodeAvailable, emailAvailable, codeAvailable, setRegisterStatus])
 
     return <EmailForm
         email={email}
