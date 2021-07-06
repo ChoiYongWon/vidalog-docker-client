@@ -90,11 +90,11 @@ export type Props = {
 const InputText = (props : Props) => {
 
     const [isTyping, setIsTyping] = useState(false)
-    const inputRef = useRef(null) as React.MutableRefObject<HTMLInputElement>
+    const inputRef = useRef<HTMLInputElement | null>(null)
 
     useEffect(()=>{
-        if(props.autoFocus){
-            inputRef.current?.focus();
+        if(inputRef.current){
+            inputRef.current.focus();
         }
         // eslint-disable-next-line
     },[])
