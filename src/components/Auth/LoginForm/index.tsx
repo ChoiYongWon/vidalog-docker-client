@@ -93,7 +93,7 @@ const LoginForm = (props : Props) => {
             <>
                 <LogoImg src={Logo}/>
                 <Form>
-                    <InputText autoFocus={true} width={"75%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
+                    <InputText width={"75%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
                     <InputText width={"75%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
                     <LoginButton status={props.loginBtnStatus} value={"로그인"}
                                  onClick={props.onClickLoginBtn}>

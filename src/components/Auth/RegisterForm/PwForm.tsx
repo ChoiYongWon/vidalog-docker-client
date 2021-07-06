@@ -59,7 +59,7 @@ const PwForm = (props : Props) => {
         <>
             <Text>비밀번호를 입력해주세요</Text>
             <Form>
-                <InputText error={props.pwError} errorMsg={props.pwErrorMsg} autoFocus={true} width={"75%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
+                <InputText error={props.pwError} errorMsg={props.pwErrorMsg}  width={"75%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
                 <InputText error={props.rePwError} errorMsg={props.rePwErrorMsg} width={"75%"} label={"비밀번호 확인"} value={props.rePw} onChange={props.onChangeRePw} type={"password"}/>
                 <Button status={props.pwBtnStatus} onClick={props.onClickPwSubmitBtn} value={"확인"}/>
             </Form>
