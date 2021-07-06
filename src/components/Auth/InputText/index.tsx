@@ -96,7 +96,8 @@ const InputText = (props : Props) => {
         if(props.autoFocus){
             inputRef.current?.focus();
         }
-    },[props.autoFocus])
+        // eslint-disable-next-line
+    },[])
 
     useEffect(()=>{
         if(props.value.length > 0) setIsTyping(true)
