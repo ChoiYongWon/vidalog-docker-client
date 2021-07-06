@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React from "react"
 import Logo from "../../../img/logo.png"
+import InputText from "../InputText";
 
 
 const Wrapper = styled.div`
@@ -31,19 +32,6 @@ const Form = styled.form`
   display : flex;
   flex-direction: column;
   align-items: center;
-`
-
-const Input = styled.input`
-  width : 70%;
-  height : 2.2rem;
-  background: #ffffff;
-  border : 0;
-  border-bottom : 2px solid #63C2C6;
-  margin-bottom: 1rem;
-  padding : 0.5rem;
-  box-sizing: border-box;
-  outline: none;
-  font-size : 0.75rem;
 `
 
 type ButtonProps = {
@@ -103,8 +91,8 @@ const LoginForm = (props : Props) => {
             <>
                 <LogoImg src={Logo}/>
                 <Form>
-                    <Input placeholder={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
-                    <Input placeholder={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
+                    <InputText autoFocus={true} width={"70%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
+                    <InputText width={"70%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
                     <LoginButton status={props.loginBtnStatus} value={"로그인"}
                                  onClick={props.onClickLoginBtn}>
                     </LoginButton>

@@ -23,6 +23,7 @@ const EmailFormContainer = () => {
 
     useEffect(()=>{
         if(!emailFilter(email)){
+            setEmailAvailable(false)
             return
         }
         setEmailAvailable(true)
@@ -63,6 +64,7 @@ const EmailFormContainer = () => {
 
     return <EmailForm
         email={email}
+        authCode={authCode}
         availableEmail={emailAvailable}
         authorization={emailAuthorization}
         emailBtnStatus={emailBtnStatus}

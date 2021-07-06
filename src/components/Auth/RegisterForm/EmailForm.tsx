@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components";
-
+import InputText from "../InputText";
 
 
 const Text = styled.p`
@@ -14,19 +14,6 @@ const Form = styled.form`
   display : flex;
   flex-direction: column;
   align-items: center;
-`
-
-const Input = styled.input`
-  width : 70%;
-  height : 2.2rem;
-  background: #ffffff;
-  border : 0;
-  border-bottom : 2px solid #63C2C6;
-  margin-bottom: 1rem;
-  padding : 0.5rem;
-  box-sizing: border-box;
-  outline: none;
-  font-size : 0.75rem;
 `
 
 type ButtonProps = {
@@ -51,6 +38,7 @@ const Button = styled.input.attrs(props => ({
 
 type Props = {
     email : string
+    authCode : string
     availableEmail : boolean
     authorization : boolean
     emailBtnStatus : boolean
@@ -65,9 +53,9 @@ const EmailForm = (props : Props) => {
             <>
                 <Text>이메일을 입력해주세요</Text>
                 <Form>
-                    <Input placeholder={"이메일"} onChange={props.onChangeEmail} value={props.email} type={"text"}/>
+                    <InputText autoFocus={true} width={"70%"} label={"이메일"} onChange={props.onChangeEmail} value={props.email} type={"text"}/>
                     {
-                        props.authorization ? <Input placeholder={"인증번호"} onChange={props.onChangeCode} type={"text"}/> : null
+                        props.authorization ? <InputText autoFocus={true} width={"70%"} label={"인증번호"} onChange={props.onChangeCode} value={props.authCode} type={"text"}/> : null
                     }
                     <Button status={props.emailBtnStatus} onClick={props.onClickEmailSubmitBtn} value={"완료"}/>
                 </Form>

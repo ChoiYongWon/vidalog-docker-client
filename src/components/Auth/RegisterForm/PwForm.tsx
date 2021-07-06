@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components";
+import InputText from "../InputText";
 
 
 
@@ -14,19 +15,6 @@ const Form = styled.form`
   display : flex;
   flex-direction: column;
   align-items: center;
-`
-
-const Input = styled.input`
-  width : 70%;
-  height : 2.2rem;
-  background: #ffffff;
-  border : 0;
-  border-bottom : 2px solid #63C2C6;
-  margin-bottom: 1rem;
-  padding : 0.5rem;
-  box-sizing: border-box;
-  outline: none;
-  font-size : 0.75rem;
 `
 
 type ButtonProps = {
@@ -68,8 +56,8 @@ const PwForm = (props : Props) => {
         <>
             <Text>비밀번호를 입력해주세요</Text>
             <Form>
-                <Input placeholder={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
-                <Input placeholder={"비밀번호 확인"} value={props.rePw} onChange={props.onChangeRePw} type={"password"}/>
+                <InputText autoFocus={true} width={"70%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
+                <InputText width={"70%"} label={"비밀번호 확인"} value={props.rePw} onChange={props.onChangeRePw} type={"password"}/>
                 <Button status={props.pwBtnStatus} onClick={props.onClickPwSubmitBtn} value={"확인"}/>
             </Form>
         </>

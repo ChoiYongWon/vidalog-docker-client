@@ -8,6 +8,8 @@ const SuccessFormContainer = () => {
 
 
     const auth = useResetRecoilState(recoil_Auth.auth_status)
+    const login_id = useResetRecoilState(recoil_Auth.login_id)
+    const login_pw = useResetRecoilState(recoil_Auth.login_pw)
     const register_status = useResetRecoilState(recoil_Auth.register_status)
     const email = useResetRecoilState(recoil_Auth.email_email)
     const email_availableEmail = useResetRecoilState(recoil_Auth.email_availableEmail)
@@ -28,6 +30,8 @@ const SuccessFormContainer = () => {
     const onClickBtn = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
         auth()
+        login_id()
+        login_pw()
         register_status()
         email()
         email_availableEmail()

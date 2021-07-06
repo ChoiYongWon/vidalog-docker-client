@@ -2,10 +2,6 @@ import React from "react"
 import styled from "styled-components";
 import {Enum_RegisterProgress} from "../../../types/Auth";
 
-import EmailFormContainer from "../../../containers/Auth/RegisterForm/EmailFormContainer";
-import PwFormCointainer from "../../../containers/Auth/RegisterForm/PwFormCointainer";
-import IdFormContainer from "../../../containers/Auth/RegisterForm/IdFormContainer";
-import SuccessFormContainer from "../../../containers/Auth/RegisterForm/SuccessFormContainer";
 
 const Wrapper = styled.div`
   max-width : 350px;
@@ -26,6 +22,7 @@ const Wrapper = styled.div`
 
 type Props = {
     registerStatus : Enum_RegisterProgress
+    children : React.ReactNode
 }
 
 
@@ -33,13 +30,7 @@ const RegisterForm = (props : Props) => {
     return (
         <Wrapper>
             {
-                (props.registerStatus===Enum_RegisterProgress.EMAIL) ?
-                    <EmailFormContainer/> :
-                (props.registerStatus===Enum_RegisterProgress.ID) ?
-                    <IdFormContainer/> :
-                (props.registerStatus===Enum_RegisterProgress.PW) ?
-                    <PwFormCointainer/> : <SuccessFormContainer/>
-
+                props.children
             }
 
 
