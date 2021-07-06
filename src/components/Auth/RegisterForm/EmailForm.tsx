@@ -57,9 +57,9 @@ const EmailForm = (props : Props) => {
             <>
                 <Text>이메일을 입력해주세요</Text>
                 <Form>
-                    <InputText error={props.emailError} errorMsg={props.emailErrorMsg}  width={"75%"} label={"이메일"} onChange={props.onChangeEmail} value={props.email} type={"text"}/>
+                    <InputText autoFocus={true} error={props.emailError} errorMsg={props.emailErrorMsg}  width={"75%"} label={"이메일"} onChange={props.onChangeEmail} value={props.email} type={"text"}/>
                     {
-                        props.authorization ? <InputText error={props.codeError} errorMsg={props.codeErrorMsg}  width={"75%"} label={"인증번호"} onChange={props.onChangeCode} value={props.authCode} type={"text"}/> : null
+                        props.authorization ? <InputText autoFocus={true} error={props.codeError} errorMsg={props.codeErrorMsg}  width={"75%"} label={"인증번호"} onChange={props.onChangeCode} value={props.authCode} type={"text"}/> : null
                     }
                     <Button status={props.emailBtnStatus} onClick={props.onClickEmailSubmitBtn} value={"완료"}/>
                 </Form>

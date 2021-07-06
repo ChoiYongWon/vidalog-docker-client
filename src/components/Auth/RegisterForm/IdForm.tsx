@@ -58,7 +58,7 @@ const IdForm = (props : Props) => {
         <>
             <Text>아이디를 입력해주세요</Text>
             <Form>
-                <InputText  width={"75%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
+                <InputText autoFocus={true} width={"75%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
                 <Button status={props.idBtnStatus} onClick={props.onClickIdSubmitBtn} value={"확인"}/>
             </Form>
         </>
