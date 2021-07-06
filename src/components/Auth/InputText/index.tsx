@@ -93,7 +93,7 @@ const InputText = (props : Props) => {
     const inputRef = useRef<HTMLInputElement | null>(null)
 
     useEffect(()=>{
-        if(inputRef.current){
+        if(inputRef.current && props.autoFocus){
             inputRef.current.focus();
         }
         // eslint-disable-next-line
