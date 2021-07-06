@@ -8,6 +8,7 @@ import {
     register_status,
     email_email,
     email_availableEmail,
+    email_availableCode,
     email_authorization,
     email_btnStatus,
     email_authCode,
@@ -17,7 +18,6 @@ import {
     pw_pw,
     pw_rePw,
     pw_availablePw,
-    pw_isEqual,
     pw_btnStatus
 } from "./auth"
 
@@ -31,6 +31,7 @@ export const recoil_Auth = {
     register_status,
     email_email,
     email_availableEmail,
+    email_availableCode,
     email_authorization,
     email_btnStatus,
     email_authCode,
@@ -40,6 +41,5 @@ export const recoil_Auth = {
     pw_pw,
     pw_rePw,
     pw_availablePw,
-    pw_isEqual,
     pw_btnStatus
 }

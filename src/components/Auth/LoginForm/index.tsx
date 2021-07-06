@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   width : 100%;
   height : auto;
   padding : 1rem;
+  font-family: 'Noto Sans KR', sans-serif;
   box-sizing: border-box;
   border : 1px #DBDBDB solid;
   border-radius: 10px;
@@ -46,6 +47,7 @@ const LoginButton = styled.input.attrs(props => ({
   background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
   border-radius: 5px;
   border : none;
+  margin-top : 1rem;
   margin-bottom: 5.5rem;
   color : white;
   font-size : 0.75rem;

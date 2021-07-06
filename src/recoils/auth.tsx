@@ -47,6 +47,11 @@ export const email_availableEmail = atom<boolean>({
     default : false
 })
 
+export const email_availableCode = atom<boolean>({
+    key : "emailAvailableCode",
+    default : false
+})
+
 export const email_authorization = atom<boolean>({
     key : "emailAuthorization",
     default : false
@@ -90,11 +95,6 @@ export const pw_rePw = atom<string>({
 
 export const pw_availablePw = atom<boolean>({
     key : "pwAvailablePw",
-    default : false
-})
-
-export const pw_isEqual = atom<boolean>({
-    key : "pwIsEqual",
     default : false
 })
 

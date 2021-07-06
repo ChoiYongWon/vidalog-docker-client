@@ -21,7 +21,6 @@ const SuccessFormContainer = () => {
     const id_btnStatus = useResetRecoilState(recoil_Auth.id_btnStatus)
     const pw = useResetRecoilState(recoil_Auth.pw_pw)
     const rePw = useResetRecoilState(recoil_Auth.pw_rePw)
-    const pw_isEqual = useResetRecoilState(recoil_Auth.pw_isEqual)
     const pw_availablePw = useResetRecoilState(recoil_Auth.pw_availablePw)
     const pw_btnStatus = useResetRecoilState(recoil_Auth.pw_btnStatus)
 
@@ -43,7 +42,6 @@ const SuccessFormContainer = () => {
         id_btnStatus()
         pw()
         rePw()
-        pw_isEqual()
         pw_availablePw()
         pw_btnStatus()
     }

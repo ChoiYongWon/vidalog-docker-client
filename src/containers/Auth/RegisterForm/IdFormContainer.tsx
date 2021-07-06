@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {recoil_Auth} from "../../../recoils/";
 import {Enum_RegisterProgress} from "../../../types/Auth";
@@ -10,6 +10,10 @@ const IdFormContainer = () => {
     const [id, setId] = useRecoilState(recoil_Auth.id_id)
     const setRegisterStatus = useSetRecoilState(recoil_Auth.register_status)
     const [idBtnStatus, setIdBtnStatus] = useRecoilState(recoil_Auth.id_btnStatus)
+    const [errorObj, setErrorObj] = useState({
+        error : false,
+        msg : ""
+    })
 
     const onChangeId = (e : React.ChangeEvent<HTMLInputElement>) => {
         setId(e.target.value)
@@ -25,18 +29,22 @@ const IdFormContainer = () => {
         if(!idBtnStatus) return
         if(!idAvailable){
             //loading
-            //id 중복 확인 api
+            //TODO id 조건 확인
+            //TODO id 중복 확인 api
+            setErrorObj({
+                error: false,
+                msg: ""
+            })
             setIdAvailable(true)
-
+            //TODO ID POST Api
+            setRegisterStatus(Enum_RegisterProgress.PW)
         }
-
-        //임시 코드
-        setRegisterStatus(Enum_RegisterProgress.PW)
-        //이메일 인증번호 체킹
     }
 
     return <IdForm
         id={id}
+        error={errorObj.error}
+        errorMsg={errorObj.msg}
         idBtnStatus={idBtnStatus}
         idAvailable={idAvailable}
         onClickIdSubmitBtn={onClickIdSubmitBtn}

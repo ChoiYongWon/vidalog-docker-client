@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import InputText  from './index';
@@ -15,13 +15,31 @@ export default {
     ],
 } as ComponentMeta<typeof InputText>;
 
-const Template: ComponentStory<typeof InputText> = (args) => <InputText {...args} />;
+export const Text : React.VFC<{}> = () => {
+    const [text, setText] = useState("")
 
-export const Normal = Template.bind({});
-Normal.args = {
-    label: '이름',
-    width : "100%",
-    autoFocus : true,
-    type : "password"
-};
+    const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setText(e.target.value)
+    }
+    return <InputText onChange={onChange} value={text} width={"100%"} label={"이름"} autoFocus={true} type={"text"}/>
+}
+
+export const Password : React.VFC<{}> = () => {
+    const [text, setText] = useState("")
+
+    const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setText(e.target.value)
+    }
+    return <InputText onChange={onChange} value={text} width={"100%"} label={"비밀번호 확인"} autoFocus={true} type={"password"}/>
+}
+
+export const Error : React.VFC<{}> = () => {
+    const [text, setText] = useState("")
+
+    const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setText(e.target.value)
+    }
+    return <InputText error={true} errorMsg={"알맞지 않는 형식입니다."} onChange={onChange} value={text} width={"100%"} label={"이메일"} autoFocus={true} type={"text"}/>
+}
+
 

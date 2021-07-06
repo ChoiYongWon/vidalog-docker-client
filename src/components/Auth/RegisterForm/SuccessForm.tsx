@@ -1,12 +1,12 @@
 import React from "react"
 import styled from "styled-components";
-import Success from "../../../img/success.png"
+// import Success from "../../../img/success.png"
 
-const SuccessImg = styled.img`
-  width : 25%;
-  height : auto;
-  margin-bottom: 2rem;
-`
+// const SuccessImg = styled.img`
+//   width : 25%;
+//   height : auto;
+//   margin-bottom: 2rem;
+// `
 
 const Text = styled.p`
   font-size : 1.125rem;
@@ -40,7 +40,7 @@ const SuccessForm = (props : Props) => {
     return (
         <>
             <Text>회원가입이 완료되었습니다.</Text>
-            <SuccessImg src={Success}/>
+            {/*<SuccessImg src={Success}/>*/}
             <Button onClick={props.onClickBtn} value={"확인"}/>
         </>
     )

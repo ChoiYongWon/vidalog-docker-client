@@ -35,6 +35,7 @@ const Button = styled.input.attrs(props => ({
   justify-content: center;
   align-items: center;
   outline: 0;
+  margin-top : 1rem;
 `
 
 export type idStatusType = {
@@ -43,6 +44,8 @@ export type idStatusType = {
 
 type Props = {
     id : string
+    error : boolean
+    errorMsg : string
     idBtnStatus : boolean
     idAvailable : boolean
     onClickIdSubmitBtn : (e : React.FormEvent<HTMLInputElement>) => void

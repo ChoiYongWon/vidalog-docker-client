@@ -1,53 +1,75 @@
 import styled from "styled-components";
 import {useState, useEffect, useRef} from "react";
 
-type WrapperProps = {
+type WrapperPropsType = {
     width : string
 }
 
-const Wrapper = styled.div`
-  width : ${(props: WrapperProps) => props.width+";"};
+const Wrapper = styled.label`
+  width : ${(props: WrapperPropsType) => props.width+";"};
   display : flex;
   height : 3.2rem;
   position : relative;
-  
 `
 
-type LabelProps = {
+type LabelPropsType = {
     typing : boolean
 }
 
 const Label = styled.span`
   position : absolute;
   user-select: none;
-  top : ${(props: LabelProps) => props.typing ? "0;" : "0.625rem;"};
-  left : ${(props: LabelProps) => props.typing ? "0.25rem;" : "0.6rem;"};
+  left : 8px;
+  line-height: 2.2rem;
   font-size : 0.75rem;
   color : rgb(142,142,142);
   transition : all ease .15s;
-  transform: ${(props: LabelProps) => props.typing ? "scale(0.75, 0.75);" : "scale(1, 1);"};
-  
+  transform-origin: left;
+  z-index: 30;
+  transform: ${(props: LabelPropsType) => props.typing ? "scale(0.8333) translateY(-0.75rem);" : "scale(1) translateY(0);"};
 `
 
-type ComponentProps = {
+type ErrorMsgType = {
+    error? : boolean
+}
+
+const ErrorMsg = styled.span`
+  position : absolute;
+  user-select: none;
+  left : 8px;
+  bottom : 0;
+  font-size : 0.75rem;
+  color : #ff3333;
+  transition : all ease .15s;
+  transform-origin: left;
+  z-index : 10;
+  font-weight: bold;
+  opacity: ${(props: ErrorMsgType) => props.error ? "1;" : "0;"};
+  transform: ${(props: ErrorMsgType) => props.error ? "scale(0.8333) translateY(0rem);" : "scale(0.8333) translateY(-1rem);"};
+`
+
+type ComponentPropsType = {
     typing : boolean
+    error? : boolean
 }
 
 const Component = styled.input`
   width : 100%;
   height : 2.2rem;
-  background: transparent;
+  background: #ffffff;
   border : 0;
-  border-bottom : 2px solid #AEDFE1;
+  border-bottom : 2px solid ${(props: ComponentPropsType) => props.error ?  "#ff3333;" : "#AEDFE1;"};
   margin-bottom: 1rem;
-  padding : ${(props: ComponentProps) => props.typing ? "1rem 0 0.125rem 0.5rem;" : "0.5rem;"};
+  padding : ${(props: ComponentPropsType) => props.typing ? "1rem 0 0.125rem 0.5rem;" : "0.5rem;"};
   box-sizing: border-box;
   outline: none;
+  z-index: 20;
   font-size : 0.75rem;
   position : absolute;
   
   &:focus{
-    border-bottom : 2px solid #63C2C6;
+    border-bottom : 2px solid ${(props: ComponentPropsType) => props.error ? "#ff3333;" : "#63C2C6;"};
+    
   }
 `
 
@@ -58,10 +80,11 @@ export type Props = {
     label : string
     type : string
     value : string
+    onChange : (e:React.ChangeEvent<HTMLInputElement>) => void
     autoFocus? : boolean
     error? : boolean
     errorMsg? : string
-    onChange? : (e:React.ChangeEvent<HTMLInputElement>) => void
+
 }
 
 const InputText = (props : Props) => {
@@ -83,7 +106,8 @@ const InputText = (props : Props) => {
 
     return <Wrapper width={props.width}>
         <Label typing={isTyping}>{props.label}</Label>
-        <Component ref={inputRef} typing={isTyping} onChange={props.onChange} value={props.value} type={props.type}/>
+        <Component ref={inputRef} error={props.error} typing={isTyping} onChange={props.onChange} value={props.value} type={props.type}/>
+        <ErrorMsg error={props.error}>{props.errorMsg}</ErrorMsg>
     </Wrapper>
 }
 

@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
     margin : 0;
     
   }
+  
   input, textarea, button {
     appearance: none;
     -webkit-appearance: none;
