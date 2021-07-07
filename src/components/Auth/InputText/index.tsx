@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {useState, useEffect, useRef} from "react";
+import {useState, useEffect, useRef, memo} from "react";
 
 type WrapperPropsType = {
     width : string
@@ -112,5 +112,6 @@ const InputText = (props : Props) => {
     </Wrapper>
 }
 
-export default InputText
+export default memo(InputText)
+
 

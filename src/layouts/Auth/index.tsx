@@ -9,7 +9,6 @@ const Container = styled.div`
   width : 100vw;
   height : auto;
   gap : 1rem;
-  padding : 5rem 0;
   box-sizing: border-box;
   @media(max-width: 500px){
     justify-content: flex-start;
