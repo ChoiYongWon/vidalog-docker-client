@@ -77,9 +77,10 @@ const EmailFormContainer = () => {
         setCodeAvailable(true)
         setRegisterStatus(Enum_RegisterProgress.ID)
         //TODO availableEmail, availableCode 맞으면 통과
-        // if(emailAvailable && codeAvailable){
-        //
-        // }
+
+        if(emailAvailable && codeAvailable){
+
+        }
         //이메일 인증번호 체킹
     },[emailAuthorization, emailBtnStatus, setEmailErrorObj, setAuthCodeErrorObj, email, setEmailAvailable, setEmailAuthorization, setCodeAvailable, emailAvailable, codeAvailable, setRegisterStatus])
 
