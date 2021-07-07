@@ -16,6 +16,7 @@ const Button = styled.input`
             height : 2.4rem;
             border-radius: 10rem;
             background: ${props.status ? "#63C2C6;" : "#AEDFE1;"};
+            box-shadow : ${props.status? "rgb(0 0 0 / 15%) 0px 0px 8px;" : "none"};
           `
       case "prev":
           return `
@@ -23,6 +24,7 @@ const Button = styled.input`
             height : 2.4rem;
             border-radius: 10rem;
             background: ${props.status ? "#e0e0e0;" : "#e0e0e0;"};
+            box-shadow : ${props.status? "rgb(0 0 0 / 15%) 0px 0px 8px;" : "none"};
           `
       case "next":
           return `
@@ -30,6 +32,7 @@ const Button = styled.input`
             height : 2.4rem;
             border-radius: 10rem;
             background: ${props.status ? "#63C2C6;" : "#AEDFE1;"};
+            box-shadow : ${props.status? "rgb(0 0 0 / 15%) 0px 0px 8px;" : "none"};
           `
       case "text":
         return `

@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   justify-content: center;
   font-family: 'Noto Sans KR', sans-serif;
   @media(max-width: 500px){
-    border : none;
+    box-shadow : none;
   }
 `
 
