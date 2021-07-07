@@ -10,6 +10,7 @@ const LoginLayout = styled.div`
   gap : 1rem;
   box-sizing: border-box;
   padding : 5rem 0;
+  
 `
 
 export default LoginLayout

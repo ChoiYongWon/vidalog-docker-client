@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {recoil_Auth} from "../../../recoils/";
 import {Enum_RegisterProgress} from "../../../types/Auth";
@@ -9,8 +9,9 @@ const PwFormContainer = () => {
 
     const [pw, setPw] = useRecoilState(recoil_Auth.pw_pw)
     const [rePw, setRePw] = useRecoilState(recoil_Auth.pw_rePw)
-    const [pwBtnStatus, setPwBtnStatus] = useRecoilState(recoil_Auth.pw_btnStatus)
-    const [availablePw, setAvailablePw] = useRecoilState(recoil_Auth.pw_availablePw)
+    // const [pwBtnStatus, setPwBtnStatus] = useRecoilState(recoil_Auth.pw_btnStatus)
+    const [pwBtnStatus, setPwBtnStatus] = useState(false)
+    const [availablePw, setAvailablePw] = useState(false)
     const setRegisterStatus = useSetRecoilState(recoil_Auth.register_status)
 
     const [pwErrorObj, setPwErrorObj] = useState({
@@ -24,7 +25,10 @@ const PwFormContainer = () => {
     })
 
     const pwFilter = (pw : string) => {
-        return pw.length >= 8
+        //8자 이상, 문자와 숫자 1개 이상
+        // eslint-disable-next-line
+        const regExp = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]{8,}$/)
+        return regExp.test(pw)
     }
 
     useEffect(()=>{
@@ -42,6 +46,10 @@ const PwFormContainer = () => {
         setRePw(e.target.value)
     }
 
+    const onClickPrevBtn = useCallback(()=>{
+        setRegisterStatus(Enum_RegisterProgress.ID)
+    },[setRegisterStatus])
+
     const onClickPwSubmitBtn = (e : React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
         if(!pwBtnStatus) return
@@ -51,7 +59,7 @@ const PwFormContainer = () => {
             setRePwErrorObj({error : false, msg : ""})
 
             if(!pwFilter(pw)) {
-                setPwErrorObj({error: true, msg: "비밀번호는 8자 이상이어야합니다."})
+                setPwErrorObj({error: true, msg: "비밀번호는 5자 이상, 문자와 숫자가 1개 이상이어야 합니다."})
                 return
             }
 
@@ -78,6 +86,7 @@ const PwFormContainer = () => {
         pwErrorMsg={pwErrorObj.msg}
         rePwError={rePwErrorObj.error}
         rePwErrorMsg={rePwErrorObj.msg}
+        onClickPrevBtn={onClickPrevBtn}
         onClickPwSubmitBtn={onClickPwSubmitBtn}
         onChangePw={onChangePw}
         onChangeRePw={onChangeRePw}

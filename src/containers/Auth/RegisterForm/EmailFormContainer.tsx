@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react"
-import {useRecoilState, useSetRecoilState} from "recoil";
+import {useRecoilState, useResetRecoilState, useSetRecoilState} from "recoil";
 import {recoil_Auth} from "../../../recoils/";
 import EmailForm from "../../../components/Auth/RegisterForm/EmailForm";
 import {Enum_RegisterProgress} from "../../../types/Auth";
@@ -7,12 +7,25 @@ import {Enum_RegisterProgress} from "../../../types/Auth";
 
 const EmailFormContainer = () => {
     const [email, setEmail] = useRecoilState(recoil_Auth.email_email)
-    const [authCode, setAuthCode] = useRecoilState(recoil_Auth.email_authCode)
-    const [emailAvailable, setEmailAvailable] = useRecoilState(recoil_Auth.email_availableEmail)
-    const [codeAvailable, setCodeAvailable] = useRecoilState(recoil_Auth.email_availableCode)
-    const [emailAuthorization, setEmailAuthorization] = useRecoilState(recoil_Auth.email_authorization)
-    const [emailBtnStatus, setEmailBtnStatus] = useRecoilState(recoil_Auth.email_btnStatus)
+    // const [authCode, setAuthCode] = useRecoilState(recoil_Auth.email_authCode)
+    // const [emailAvailable, setEmailAvailable] = useRecoilState(recoil_Auth.email_availableEmail)
+    // const [codeAvailable, setCodeAvailable] = useRecoilState(recoil_Auth.email_availableCode)
+    // const [emailAuthorization, setEmailAuthorization] = useRecoilState(recoil_Auth.email_authorization)
+    const [authCode, setAuthCode] = useState("")
+    const [emailAvailable, setEmailAvailable] = useState(false)
+    const [codeAvailable, setCodeAvailable] = useState(false)
+    const [emailAuthorization, setEmailAuthorization] = useState(false)
+    // const [emailBtnStatus, setEmailBtnStatus] = useRecoilState(recoil_Auth.email_btnStatus)
+    const [emailBtnStatus, setEmailBtnStatus] = useState(false)
     const setRegisterStatus = useSetRecoilState(recoil_Auth.register_status)
+
+    //초기화 과정
+    const resetAuth = useResetRecoilState(recoil_Auth.auth_status)
+    const resetRegisterStatus = useResetRecoilState(recoil_Auth.register_status)
+    const resetEmail = useResetRecoilState(recoil_Auth.email_email)
+    const resetPw = useResetRecoilState(recoil_Auth.pw_pw)
+    const resetRePw = useResetRecoilState(recoil_Auth.pw_rePw)
+    const resetId = useResetRecoilState(recoil_Auth.id_id)
 
     const [emailErrorObj, setEmailErrorObj] = useState({
         error : false,
@@ -34,10 +47,11 @@ const EmailFormContainer = () => {
                 setEmailBtnStatus(true)
             else
                 setEmailBtnStatus(false)
-    })
+    }, [emailAuthorization, authCode, email, setEmailBtnStatus])
 
     const emailFilter = (email : string) => {
-        return email.includes("@") && email.length > 3
+        const regExp =  new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
+        return regExp.test(email)
     }
 
 
@@ -48,6 +62,16 @@ const EmailFormContainer = () => {
     const onChangeCode = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setAuthCode(e.target.value)
     },[setAuthCode])
+
+    const onClickPrevBtn = useCallback(()=>{
+        resetAuth()
+        resetRegisterStatus()
+        resetEmail()
+        resetId()
+        resetPw()
+        resetRePw()
+
+    },[resetAuth, resetRegisterStatus, resetEmail,resetId,resetPw,resetRePw])
 
     const onClickEmailSubmitBtn = useCallback((e : React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
@@ -94,6 +118,7 @@ const EmailFormContainer = () => {
         authorization={emailAuthorization}
         emailBtnStatus={emailBtnStatus}
         onClickEmailSubmitBtn={onClickEmailSubmitBtn}
+        onClickPrevBtn={onClickPrevBtn}
         onChangeEmail={onChangeEmail}
         onChangeCode={onChangeCode}
     />
