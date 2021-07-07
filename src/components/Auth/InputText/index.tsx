@@ -44,6 +44,7 @@ const ErrorMsg = styled.span`
   transform-origin: left;
   z-index : 10;
   font-weight: bold;
+  white-space: nowrap;
   opacity: ${(props: ErrorMsgType) => props.error ? "1;" : "0;"};
   transform: ${(props: ErrorMsgType) => props.error ? "scale(0.8333) translateY(0rem);" : "scale(0.8333) translateY(-1rem);"};
 `

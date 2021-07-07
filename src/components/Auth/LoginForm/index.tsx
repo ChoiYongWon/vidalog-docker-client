@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react"
 import Logo from "../../../img/logo.png"
 import InputText from "../InputText";
+import Button from "../Button";
 
 
 const Wrapper = styled.div`
@@ -11,13 +12,13 @@ const Wrapper = styled.div`
   padding : 1rem;
   font-family: 'Noto Sans KR', sans-serif;
   box-sizing: border-box;
-  border : 1px #DBDBDB solid;
+  box-shadow : rgb(0 0 0 / 15%) 0px 0px 10px;
   border-radius: 10px;
   display : flex;
   flex-direction: column;
   align-items: center;
   @media(max-width: 500px){
-    border : none;
+    box-shadow : none;
   }
 `
 
@@ -35,26 +36,10 @@ const Form = styled.form`
   align-items: center;
 `
 
-type ButtonProps = {
-    status : boolean
-}
-
-const LoginButton = styled.input.attrs(props => ({
-    type: "submit",
-}))`
+const ButtonLayout = styled.div`
   width : 75%;
-  height : 2.2rem;
-  background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
-  border-radius: 5px;
-  border : none;
-  margin-top : 1rem;
-  margin-bottom: 5.5rem;
-  color : white;
-  font-size : 0.75rem;
-  display : flex;
-  justify-content: center;
-  align-items: center;
-  outline: 0;
+  height : auto;
+  margin : 1rem 0 5.5rem;
 `
 
 const MenuWrapper = styled.div`
@@ -95,9 +80,12 @@ const LoginForm = (props : Props) => {
                 <Form>
                     <InputText width={"75%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
                     <InputText width={"75%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
-                    <LoginButton status={props.loginBtnStatus} value={"로그인"}
-                                 onClick={props.onClickLoginBtn}>
-                    </LoginButton>
+                    <ButtonLayout>
+                        <Button status={props.loginBtnStatus} value={"로그인"}
+                                onClick={props.onClickLoginBtn} type={"submit"} types={"block"}>
+                        </Button>
+                    </ButtonLayout>
+
 
 
                 </Form>

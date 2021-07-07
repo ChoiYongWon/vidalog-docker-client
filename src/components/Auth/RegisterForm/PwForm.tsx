@@ -1,11 +1,12 @@
 import React from "react"
 import styled from "styled-components";
+import Button from "../Button";
 import InputText from "../InputText";
 
 
 
 const Text = styled.p`
-  font-size : 1rem;
+  font-size : 1.25rem;
   font-weight : bold;
   color : #707070;
 `
@@ -17,25 +18,13 @@ const Form = styled.form`
   align-items: center;
 `
 
-type ButtonProps = {
-    status : boolean
-}
-
-const Button = styled.input.attrs(props => ({
-    type: "submit",
-}))`
+const ButtonLayout = styled.div`
   width : 75%;
-  height : 2.2rem;
-  background: ${(props: ButtonProps) => props.status ? "#63C2C6;" : "#AEDFE1;"};
-  border-radius: 5px;
-  border : none;
-  color : white;
-  font-size : 0.75rem;
+  height : auto;
   display : flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  outline: 0;
-  margin-top : 1rem;
+  margin: 2rem 0 0;
 `
 
 type Props = {
@@ -45,6 +34,7 @@ type Props = {
     pwErrorMsg : string
     rePwError : boolean
     rePwErrorMsg : string
+    onClickPrevBtn : () => void
     onClickPwSubmitBtn : (e: React.FormEvent<HTMLInputElement>)=> void
     onChangePw : (e:React.ChangeEvent<HTMLInputElement>) => void
     onChangeRePw : (e:React.ChangeEvent<HTMLInputElement>) => void
@@ -61,7 +51,10 @@ const PwForm = (props : Props) => {
             <Form>
                 <InputText autoFocus={true} error={props.pwError} errorMsg={props.pwErrorMsg}  width={"75%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
                 <InputText error={props.rePwError} errorMsg={props.rePwErrorMsg} width={"75%"} label={"비밀번호 확인"} value={props.rePw} onChange={props.onChangeRePw} type={"password"}/>
-                <Button status={props.pwBtnStatus} onClick={props.onClickPwSubmitBtn} value={"확인"}/>
+                <ButtonLayout>
+                    <Button status={props.pwBtnStatus} onClick={props.onClickPrevBtn} value={"이전"} type={"button"} types={"prev"}/>
+                    <Button status={props.pwBtnStatus} onClick={props.onClickPwSubmitBtn} value={"다음"} type={"submit"} types={"next"}/>
+                </ButtonLayout>
             </Form>
         </>
     )

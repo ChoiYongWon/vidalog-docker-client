@@ -83,9 +83,8 @@ const RegisterProgress = (props : Props) => {
     const [indicator, setIndicator] = useState([false, false, false, false])
 
     useEffect(()=>{
-        setIndicator((state : boolean[]) =>{
-            const prev = [...state]
-            return prev.fill(true,0, props.status+1)
+        setIndicator(() =>{
+            return  [false, false, false, false].fill(true,0, props.status+1)
         })
     },[props.status])
 
