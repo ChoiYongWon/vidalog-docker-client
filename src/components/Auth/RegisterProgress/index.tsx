@@ -39,15 +39,17 @@ const Section = styled.div`
   height : 100%;
   align-self: center;
   justify-self: center;
-  border : 4px solid ${(props : ProgressProps) => props.enable ? `#63C2C6;` : `#DBDBDB;`}
+  //border : 4px solid ${(props : ProgressProps) => props.enable ? `#63C2C6;` : `transparent;`}
   color : ${(props : ProgressProps) => props.enable ? `#ffffff;` : `#DBDBDB;`};
-  background-color : ${(props : ProgressProps) => props.enable ? `#81CFD1;` : `#ffffff;`};
+  background-color : ${(props : ProgressProps) => props.enable ? `#63C2C6;` : `transparent;`};
+  box-shadow : rgb(0 0 0 / 15%) 0px 0px 10px;
   grid-column : span 1;
   grid-row : span 1;
   padding : 0;
   margin : 0;
   box-sizing: border-box;
   border-radius : 100%;
+  font-weight : bold;
   display : flex;
   align-items: center;
   justify-content: center;
