@@ -24,6 +24,7 @@ type ProgressProps = {
 const Text = styled.p`
   font-size : 0.75rem;
   color : ${(props : ProgressProps) => props.enable ? `#63C2C6;` : `#DBDBDB;`};
+  transition: color linear 0.5s;
   grid-column : span 1;
   grid-row : span 1;
   padding : 0;
