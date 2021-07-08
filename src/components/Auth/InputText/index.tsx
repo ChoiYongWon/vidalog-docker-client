@@ -23,6 +23,7 @@ const Label = styled.span`
   line-height: 2.2rem;
   font-size : 0.75rem;
   color : rgb(142,142,142);
+  font-family: 'Noto Sans KR', sans-serif;
   transition : all ease .1s;
   transform-origin: left;
   z-index: 30;
@@ -45,6 +46,7 @@ const ErrorMsg = styled.span`
   z-index : 10;
   font-weight: bold;
   white-space: nowrap;
+  font-family: 'Noto Sans KR', sans-serif;
   opacity: ${(props: ErrorMsgType) => props.error ? "1;" : "0;"};
   transform: ${(props: ErrorMsgType) => props.error ? "scale(0.8333) translateY(0rem);" : "scale(0.8333) translateY(-1rem);"};
 `
@@ -65,6 +67,8 @@ const Component = styled.input`
   box-sizing: border-box;
   outline: none;
   z-index: 20;
+  color : #373737;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size : 0.75rem;
   position : absolute;
   
