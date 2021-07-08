@@ -53,12 +53,13 @@ const Section = styled.div`
   display : flex;
   align-items: center;
   justify-content: center;
+  transition: background-color linear 0.5s;
   @media(max-width: 500px){
     max-width : 30px;
     width : 100%;
     max-height : 30px;
     height : 100%;
-    font-size : 0.75rem;
+    font-size : 0.5rem;
   }
 `
 
@@ -69,15 +70,18 @@ const Empty = styled.div`
 const Bar = styled.div`
   grid-column : span 1;
   grid-row : span 1;
-  border : 2px solid ${(props : ProgressProps) => props.enable ? `#63C2C6;` : `#DBDBDB;`};
-  background-color : ${(props : ProgressProps) => props.enable ? `#63C2C6;` : `#DBDBDB;`};
+  border : 2px solid #63C2C6;
+  background-color : #63C2C6;
   width : 70%;
+  transform : ${(props : ProgressProps) => props.enable ? `scaleX(1);` : `scaleX(0);`};;
+  transform-origin: left;
   height : 2px;
   padding : 0;
   margin : 0;
   box-sizing: border-box;
   border-radius: 50px;
   justify-self: center;
+  transition: all linear 0.25s;
 `
 
 
