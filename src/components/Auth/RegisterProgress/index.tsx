@@ -11,7 +11,6 @@ const Wrapper = styled.div`
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(2, 40px);
   align-items: center;
-  align-content: center;
   font-family: 'Noto Sans KR', sans-serif;
   @media(max-width: 500px){
     max-width : 280px;
