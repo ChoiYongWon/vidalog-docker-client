@@ -39,7 +39,7 @@ const ErrorMsg = styled.span`
   left : 8px;
   bottom : 0;
   font-size : 0.75rem;
-  color : #ff3333;
+  color : #ff7961;
   transition : all ease .15s;
   transform-origin: left;
   z-index : 10;
@@ -59,7 +59,7 @@ const Component = styled.input`
   height : 2.2rem;
   background: #ffffff;
   border : 0;
-  border-bottom : 2px solid ${(props: ComponentPropsType) => props.error ?  "#ff3333;" : "#AEDFE1;"};
+  border-bottom : 2px solid ${(props: ComponentPropsType) => props.error ?  "#ff7961;" : "#AEDFE1;"};
   margin-bottom: 1rem;
   padding : ${(props: ComponentPropsType) => props.typing ? "1rem 0 0.125rem 0.5rem;" : "0.5rem;"};
   box-sizing: border-box;

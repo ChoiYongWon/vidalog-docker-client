@@ -10,6 +10,7 @@ const Component = styled.header`
     font-family: 'Noto Sans KR', sans-serif;
     font-size : 1rem;
     display : none;
+    margin-bottom: 1.5rem;
     @media(max-width: 500px){
       display : block;
     }

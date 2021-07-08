@@ -9,8 +9,9 @@ const Wrapper = styled.div`
   height : auto;
   display : grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(2, 50px);
+  grid-template-rows: repeat(2, 40px);
   align-items: center;
+  align-content: center;
   font-family: 'Noto Sans KR', sans-serif;
   @media(max-width: 500px){
     max-width : 280px;
@@ -33,10 +34,12 @@ const Text = styled.p`
 `
 
 const Section = styled.div`
-  max-width : 50px;
+  max-width : 40px;
   width : 100%;
-  max-height : 50px;
+  max-height : 40px;
   height : 100%;
+  align-self: center;
+  justify-self: center;
   border : 4px solid ${(props : ProgressProps) => props.enable ? `#63C2C6;` : `#DBDBDB;`}
   color : ${(props : ProgressProps) => props.enable ? `#ffffff;` : `#DBDBDB;`};
   background-color : ${(props : ProgressProps) => props.enable ? `#81CFD1;` : `#ffffff;`};
@@ -47,13 +50,14 @@ const Section = styled.div`
   box-sizing: border-box;
   border-radius : 100%;
   display : flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   @media(max-width: 500px){
-    max-width : 40px;
+    max-width : 30px;
     width : 100%;
-    max-height : 40px;
+    max-height : 30px;
     height : 100%;
+    font-size : 0.75rem;
   }
 `
 
@@ -66,11 +70,13 @@ const Bar = styled.div`
   grid-row : span 1;
   border : 2px solid ${(props : ProgressProps) => props.enable ? `#63C2C6;` : `#DBDBDB;`};
   background-color : ${(props : ProgressProps) => props.enable ? `#63C2C6;` : `#DBDBDB;`};
-  width : 100%;
+  width : 70%;
   height : 2px;
   padding : 0;
   margin : 0;
   box-sizing: border-box;
+  border-radius: 50px;
+  justify-self: center;
 `
 
 
