@@ -16,8 +16,12 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   font-family: 'Noto Sans KR', sans-serif;
+  transform : scale(1.1, 1.1);
+  
   @media(max-width: 500px){
     box-shadow : none;
+    transform: scale(1,1);
+
   }
 `
 

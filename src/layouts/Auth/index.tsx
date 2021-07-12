@@ -6,10 +6,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width : 100vw;
+  width : 100%;
   height : auto;
   gap : 1rem;
   box-sizing: border-box;
+  
   @media(max-width: 500px){
     justify-content: flex-start;
   }

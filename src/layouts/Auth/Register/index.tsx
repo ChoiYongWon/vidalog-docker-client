@@ -7,7 +7,7 @@ const RegisterLayout = styled.div`
   flex-direction: column;
   width : 100vw;
   height : auto;
-  gap : 2rem;
+  gap : 3rem;
   box-sizing: border-box;
   padding : 5rem 0;
   @media(max-width: 500px){

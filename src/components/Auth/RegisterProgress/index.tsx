@@ -12,9 +12,12 @@ const Wrapper = styled.div`
   grid-template-rows: repeat(2, 40px);
   align-items: center;
   font-family: 'Noto Sans KR', sans-serif;
+  transform: scale(1.1,1.1);
+
   @media(max-width: 500px){
     max-width : 280px;
     grid-template-rows: repeat(2, 40px);
+    transform: scale(1,1);
   }
 `
 type ProgressProps = {
