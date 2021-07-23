@@ -50,7 +50,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: ssh ec2-user@54.180.166.3 ./deploy-frontend.sh
+      - run: ssh ec2-user@54.180.166.3 ./vidalog/deploy-frontend.sh
   
 workflows:
   version: 2.1
