@@ -9,7 +9,8 @@ const Wrapper = styled.div`
   height : auto;
   padding : 1rem 1rem 2rem;
   box-sizing: border-box;
-  box-shadow : rgb(0 0 0 / 15%) 0px 0px 10px;
+  //box-shadow : rgb(0 0 0 / 15%) 0px 0px 10px;
+  box-shadow: 0 20px 25px -5px rgba(0 0 0 / .10), 0 10px 10px 05px rgba(0 0 0 / .04);
   border-radius: 10px;
   display : flex;
   flex-direction: column;

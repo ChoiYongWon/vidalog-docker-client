@@ -1,0 +1,1 @@
+export const HostUrl = "http://54.180.166.3:8080"

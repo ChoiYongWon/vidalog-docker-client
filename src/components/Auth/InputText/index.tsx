@@ -112,7 +112,7 @@ const InputText = (props : Props) => {
 
     return <Wrapper width={props.width}>
         <Label typing={isTyping}>{props.label}</Label>
-        <Component ref={inputRef} error={props.error} typing={isTyping} onChange={props.onChange} value={props.value} type={props.type} autoCapitalize={"off"}/>
+        <Component ref={inputRef} error={props.error} typing={isTyping} onChange={props.onChange} value={props.value} type={props.type} autoComplete={"on"} autoCapitalize={"off"}/>
         <ErrorMsg error={props.error}>{props.errorMsg}</ErrorMsg>
     </Wrapper>
 }

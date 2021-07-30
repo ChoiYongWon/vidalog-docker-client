@@ -36,7 +36,6 @@ type Props = {
     error : boolean
     errorMsg : string
     idBtnStatus : boolean
-    idAvailable : boolean
     onClickPrevBtn : () => void
     onClickIdSubmitBtn : (e : React.FormEvent<HTMLInputElement>) => void
     onChangeId : (e : React.ChangeEvent<HTMLInputElement>) => void

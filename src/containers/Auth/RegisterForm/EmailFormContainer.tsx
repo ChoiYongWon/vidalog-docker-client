@@ -3,6 +3,7 @@ import {useRecoilState, useResetRecoilState, useSetRecoilState} from "recoil";
 import {recoil_Auth} from "../../../recoils/";
 import EmailForm from "../../../components/Auth/RegisterForm/EmailForm";
 import {Enum_RegisterProgress} from "../../../types/Auth";
+import {EmailAPI} from "../../../api/EmailAPI";
 
 
 const EmailFormContainer = () => {
@@ -12,8 +13,8 @@ const EmailFormContainer = () => {
     // const [codeAvailable, setCodeAvailable] = useRecoilState(recoil_Auth.email_availableCode)
     // const [emailAuthorization, setEmailAuthorization] = useRecoilState(recoil_Auth.email_authorization)
     const [authCode, setAuthCode] = useState("")
-    const [emailAvailable, setEmailAvailable] = useState(false)
-    const [codeAvailable, setCodeAvailable] = useState(false)
+    // const [emailAvailable, setEmailAvailable] = useState(false)
+    // const [codeAvailable, setCodeAvailable] = useState(false)
     const [emailAuthorization, setEmailAuthorization] = useState(false)
     // const [emailBtnStatus, setEmailBtnStatus] = useRecoilState(recoil_Auth.email_btnStatus)
     const [emailBtnStatus, setEmailBtnStatus] = useState(false)
@@ -86,27 +87,36 @@ const EmailFormContainer = () => {
                 return
             }
 
-            //TODO 가입된 이메일인지 확인 API
-
-            setEmailAvailable(true)
-
+            // setEmailAvailable(true)
             //TODO 인증코드 요청 API
-
-            setEmailAuthorization(true)
+            EmailAPI.emailVerification(email).then(()=>{
+                setEmailAuthorization(true)
+            }).catch((res)=>{
+                console.dir(res)
+                if(res.status===406) setEmailErrorObj({error: true, msg : "이미 가입된 이메일 입니다."})
+                else if(res.status===500) setEmailErrorObj({error: true, msg : "메일이 전송되지 않았습니다."})
+            })
             return
         }
         //이메일 통과 시점
         //TODO 인증코드 확인 API
+        EmailAPI.verifyCode(email, authCode).then(async (res)=>{
+            const result = await res.json()
+            if(result.verified) setRegisterStatus(Enum_RegisterProgress.ID)
+            else throw result
+        }).catch(res=>{
+            if(!res.verified) setAuthCodeErrorObj({error:true, msg: "잘못된 인증코드 입니다."})
+
+        })
         //임시 코드
-        setCodeAvailable(true)
-        setRegisterStatus(Enum_RegisterProgress.ID)
+        // setCodeAvailable(true)
         //TODO availableEmail, availableCode 맞으면 통과
 
-        if(emailAvailable && codeAvailable){
-
-        }
+        // if(emailAvailable && codeAvailable){
+        //
+        // }
         //이메일 인증번호 체킹
-    },[emailAuthorization, emailBtnStatus, setEmailErrorObj, setAuthCodeErrorObj, email, setEmailAvailable, setEmailAuthorization, setCodeAvailable, emailAvailable, codeAvailable, setRegisterStatus])
+    },[authCode, emailAuthorization, emailBtnStatus, setEmailErrorObj, setAuthCodeErrorObj, email, setEmailAuthorization, setRegisterStatus])
 
     return <EmailForm
         email={email}

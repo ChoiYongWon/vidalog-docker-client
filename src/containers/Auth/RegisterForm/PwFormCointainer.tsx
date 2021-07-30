@@ -1,8 +1,9 @@
 import React, {useCallback, useEffect, useState} from "react"
-import {useRecoilState, useSetRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {recoil_Auth} from "../../../recoils/";
 import {Enum_RegisterProgress} from "../../../types/Auth";
 import PwForm from "../../../components/Auth/RegisterForm/PwForm";
+import {AuthAPI} from "../../../api/AuthAPI";
 
 
 const PwFormContainer = () => {
@@ -11,8 +12,9 @@ const PwFormContainer = () => {
     const [rePw, setRePw] = useRecoilState(recoil_Auth.pw_rePw)
     // const [pwBtnStatus, setPwBtnStatus] = useRecoilState(recoil_Auth.pw_btnStatus)
     const [pwBtnStatus, setPwBtnStatus] = useState(false)
-    const [availablePw, setAvailablePw] = useState(false)
     const setRegisterStatus = useSetRecoilState(recoil_Auth.register_status)
+    const id = useRecoilValue(recoil_Auth.id_id)
+    const email = useRecoilValue(recoil_Auth.email_email)
 
     const [pwErrorObj, setPwErrorObj] = useState({
         error : false,
@@ -53,27 +55,29 @@ const PwFormContainer = () => {
     const onClickPwSubmitBtn = (e : React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
         if(!pwBtnStatus) return
-        if(!availablePw){
 
-            setPwErrorObj({error : false, msg : ""})
-            setRePwErrorObj({error : false, msg : ""})
+        setPwErrorObj({error : false, msg : ""})
+        setRePwErrorObj({error : false, msg : ""})
 
-            if(!pwFilter(pw)) {
-                setPwErrorObj({error: true, msg: "비밀번호는 5자 이상, 문자와 숫자가 1개 이상이어야 합니다."})
-                return
-            }
-
-            if(pw !== rePw){
-
-                setRePwErrorObj({error : true, msg : "비밀번호가 일치하지 않습니다."})
-
-                return
-            }
-
-            setAvailablePw(true)
-            //TODO 비밀번호 POST Api
-            setRegisterStatus(Enum_RegisterProgress.SUCCESS)
+        if(!pwFilter(pw)) {
+            setPwErrorObj({error: true, msg: "비밀번호는 5자 이상, 문자와 숫자가 1개 이상이어야 합니다."})
+            return
         }
+
+        if(pw !== rePw){
+
+            setRePwErrorObj({error : true, msg : "비밀번호가 일치하지 않습니다."})
+
+            return
+        }
+
+        //TODO Register Api
+        AuthAPI.register(id, email, pw).then(()=>{
+            setRegisterStatus(Enum_RegisterProgress.SUCCESS)
+        }).catch(()=>{
+            setRePwErrorObj({error : true, msg : "회원가입 되지 않았습니다."})
+        })
+
 
         //임시 코드
         //이메일 인증번호 체킹

@@ -12,7 +12,8 @@ const Wrapper = styled.div`
   padding : 1rem;
   font-family: 'Noto Sans KR', sans-serif;
   box-sizing: border-box;
-  box-shadow : rgb(0 0 0 / 15%) 0px 0px 10px;
+  //box-shadow : rgb(0 0 0 / 15%) 0px 0px 10px;
+  box-shadow: 0 20px 25px -5px rgba(0 0 0 / .10), 0 10px 10px 05px rgba(0 0 0 / .04);
   border-radius: 10px;
   display : flex;
   flex-direction: column;
@@ -67,6 +68,8 @@ const Menu = styled.button`
 type Props = {
     id: string
     pw : string
+    error : boolean,
+    errorMsg : string,
     onChangeId : (e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
     onChangePw : (e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
     loginBtnStatus : boolean
@@ -83,7 +86,7 @@ const LoginForm = (props : Props) => {
                 <LogoImg src={Logo}/>
                 <Form>
                     <InputText width={"75%"} label={"아이디"} value={props.id} onChange={props.onChangeId} type={"text"}/>
-                    <InputText width={"75%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
+                    <InputText error={props.error} errorMsg={props.errorMsg} width={"75%"} label={"비밀번호"} value={props.pw} onChange={props.onChangePw} type={"password"}/>
                     <ButtonLayout>
                         <Button status={props.loginBtnStatus} value={"로그인"}
                                 onClick={props.onClickLoginBtn} type={"submit"} types={"block"}>
