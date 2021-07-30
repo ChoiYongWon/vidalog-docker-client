@@ -18,11 +18,9 @@ const Wrapper = styled.div`
   display : flex;
   flex-direction: column;
   align-items: center;
-  transform : scale(1.1, 1.1);
   
   @media(max-width: 500px){
     box-shadow : none;
-    transform: scale(1,1);
 
   }
 `
