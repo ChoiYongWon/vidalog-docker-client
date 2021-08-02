@@ -42,6 +42,7 @@ const LoginFormContainer = () => {
             setAuthentication(Auth.LOGIN)
             setRole(Role.USER)
             localStorage.setItem("VAT",res.access_token)
+            localStorage.setItem("VRT",res.refresh_token)
             history.push("/")
         }).catch(()=>{
             setErrorObj({

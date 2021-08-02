@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouterIndex } from "./routes/index"
 import {createGlobalStyle} from "styled-components"
+import { Init } from "./.start/init"
+import {recoil_Auth} from "./recoils/index";
+import {useSetRecoilState} from "recoil";
+import { Auth, Role } from "./types/Auth";
+import {useHistory} from "react-router-dom"
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -22,11 +27,32 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function App() {
+
+    const setAuthentication = useSetRecoilState(recoil_Auth.authenticate)
+    const setRole = useSetRecoilState(recoil_Auth.role)
+    const [initialized, setInitialized] = useState(false)
+    const history = useHistory()
+
+    //마운팅 첫 단계에 start 호출후 initialized true로 설정
+    useEffect(()=>{
+        Init.start().then(()=>{
+            setAuthentication(Auth.LOGIN)
+            setRole(Role.USER)
+        }).then(()=>setInitialized(true)).catch(()=>{
+            history.push("auth")
+        })
+        // eslint-disable-next-line
+    },[])
+
   return (
-    <>
-        <GlobalStyle/>
-        <RouterIndex/>
-    </>
+      //start가 실행되기 전까진 렌더링 안됨
+      initialized ?
+          <>
+              <GlobalStyle/>
+              <RouterIndex/>
+          </> : null
+
+
   );
 }
 

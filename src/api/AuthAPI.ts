@@ -1,4 +1,4 @@
-import {HostUrl} from "../.config/constant";
+import {clientInfo, HostUrl} from "../.config/constant";
 
 export const AuthAPI = {
     idValidation : async (id: string): Promise<any>=> {
@@ -47,5 +47,36 @@ export const AuthAPI = {
             if(!res.ok) throw new Error()
             return await res.json()
         })
-    }
+    },
+
+    tockenValidation : async (id: string): Promise<any>=> {
+        return fetch(HostUrl+"/auth/isATValid", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer "+localStorage.getItem("VAT")
+            }
+        }).then(async res=>{
+            if(!res.ok) throw await res.json()
+            return await res.json()
+        })
+    },
+
+    refreshToken : async (refreshToken: string | null): Promise<any>=> {
+        if(!refreshToken) return
+        return fetch(HostUrl+"/auth/refreshToken", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization" : "Basic "+Buffer.from(clientInfo.id+":"+clientInfo.secret, "utf8").toString("base64")
+            },
+            body: JSON.stringify({
+                refresh_token: refreshToken
+            })
+        }).then(async res=>{
+            if(!res.ok) throw await res.json()
+            return await res.json()
+        })
+    },
+    
 }
