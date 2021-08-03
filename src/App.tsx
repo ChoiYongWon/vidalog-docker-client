@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { RouterIndex } from "./routes/index"
 import {createGlobalStyle} from "styled-components"
 import { Init } from "./.start/init"
-import {recoil_Auth} from "./recoils/index";
+import {recoil_Auth, recoil_User} from "./recoils/index";
 import {useSetRecoilState} from "recoil";
-import { Auth, Role } from "./types/Auth";
+import { Auth } from "./types/Auth";
 import {useHistory} from "react-router-dom"
+import {User} from "./types/User";
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -29,16 +30,19 @@ const GlobalStyle = createGlobalStyle`
 function App() {
 
     const setAuthentication = useSetRecoilState(recoil_Auth.authenticate)
-    const setRole = useSetRecoilState(recoil_Auth.role)
+    const setUser = useSetRecoilState(recoil_User.user)
     const [initialized, setInitialized] = useState(false)
     const history = useHistory()
 
     //마운팅 첫 단계에 start 호출후 initialized true로 설정
     useEffect(()=>{
-        Init.start().then(()=>{
+        Init.start().then((payload)=>{
             setAuthentication(Auth.LOGIN)
-            setRole(Role.USER)
+            console.log("payload", payload)
+            setUser(payload as User)
+
         }).then(()=>setInitialized(true)).catch(()=>{
+            setInitialized(true)
             history.push("auth")
         })
         // eslint-disable-next-line

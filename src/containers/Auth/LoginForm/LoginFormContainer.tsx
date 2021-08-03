@@ -3,10 +3,11 @@ import React, {useEffect, useState} from "react"
 import {auth_status, login_btnStatus, login_id, login_pw} from "../../../recoils/auth";
 import LoginForm from "../../../components/Auth/LoginForm";
 import {useRecoilState, useSetRecoilState} from "recoil";
-import {Auth, Enum_AuthStatus, Role} from "../../../types/Auth";
-import {AuthAPI} from "../../../api/AuthAPI";
+import {Auth, Enum_AuthStatus} from "../../../types/Auth";
 import {useHistory} from "react-router-dom"
-import {recoil_Auth} from "../../../recoils";
+import {recoil_Auth, recoil_User} from "../../../recoils";
+import {LoginProcess} from "../../../services/LoginProcess";
+import {User} from "../../../types/User";
 
 
 const LoginFormContainer = () => {
@@ -15,7 +16,7 @@ const LoginFormContainer = () => {
     const [loginBtnStatus, setLoginBtnStatus] = useRecoilState(login_btnStatus)
     const setAuthStatus = useSetRecoilState(auth_status)
     const setAuthentication = useSetRecoilState(recoil_Auth.authenticate)
-    const setRole = useSetRecoilState(recoil_Auth.role)
+    const setUser = useSetRecoilState(recoil_User.user)
     const history = useHistory()
     const [errorObj, setErrorObj] = useState({
         error : false,
@@ -38,11 +39,9 @@ const LoginFormContainer = () => {
     const onClickLoginBtn = (e : React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
         if(!loginBtnStatus) return
-        AuthAPI.login(id, pw).then((res)=>{
+        LoginProcess(id, pw).then((payload)=>{
             setAuthentication(Auth.LOGIN)
-            setRole(Role.USER)
-            localStorage.setItem("VAT",res.access_token)
-            localStorage.setItem("VRT",res.refresh_token)
+            setUser(payload as User)
             history.push("/")
         }).catch(()=>{
             setErrorObj({

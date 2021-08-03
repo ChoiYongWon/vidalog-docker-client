@@ -21,6 +21,14 @@ import {
     pw_btnStatus
 } from "./auth"
 
+import {
+    user
+} from "./user"
+
+export const recoil_User = {
+    user
+}
+
 export const recoil_Auth = {
     authenticate,
     role,

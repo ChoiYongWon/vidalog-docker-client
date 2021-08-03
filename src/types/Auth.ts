@@ -4,8 +4,9 @@ export enum Auth {
 }
 
 export enum Role {
-    GUEST,
-    USER
+    GUEST = -1,
+    USER,
+    ADMIN,
 }
 
 export enum Enum_AuthStatus {
