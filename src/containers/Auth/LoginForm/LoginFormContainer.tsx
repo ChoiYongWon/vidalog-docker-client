@@ -42,14 +42,15 @@ const LoginFormContainer = () => {
         LoginProcess(id, pw).then((payload)=>{
             setAuthentication(Auth.LOGIN)
             setUser(payload as User)
+            setId(""); setPw(""); setLoginBtnStatus(false);
             history.push("/")
         }).catch((e)=>{
             console.log(e)
+            setId(""); setPw(""); setLoginBtnStatus(false);
             setErrorObj({
                 error : true,
                 msg : "아이디 또는 비밀번호가 틀립니다."
             })
-            setId(""); setPw(""); setLoginBtnStatus(false);
         })
 
     }

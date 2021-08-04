@@ -1,19 +1,19 @@
 import {clientInfo, HostUrl} from "../.config/constant";
 
 export const AuthAPI = {
-    idValidation : async (id: string): Promise<any>=> {
+    idValidation : (id: string): Promise<any>=> {
         return fetch(HostUrl+"/auth/idValidation?id="+id, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(async res=>{
+        }).then( res=>{
             if(!res.ok) throw res
             return res
         })
     },
 
-    login : async (id: string, password: string): Promise<any>=> {
+    login : (id: string, password: string): Promise<any>=> {
         return fetch(HostUrl+"/auth/login", {
             method: "POST",
             headers: {
@@ -24,13 +24,27 @@ export const AuthAPI = {
                 password : password
             })
 
-        }).then(async res=>{
+        }).then( res=>{
             if(!res.ok) throw res
             return res
         })
     },
 
-    register : async (id: string, email: string, password: string): Promise<any>=> {
+    logout : (): Promise<any>=> {
+        return fetch(HostUrl+"/auth/logout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer "+localStorage.getItem("VAT")
+            }
+
+        }).then(res=>{
+            if(!res.ok) throw res
+            return res
+        })
+    },
+
+    register : (id: string, email: string, password: string): Promise<any>=> {
         return fetch(HostUrl+"/auth/register", {
             method: "POST",
             headers: {
@@ -43,27 +57,26 @@ export const AuthAPI = {
                 nickname : ""
             })
 
-        }).then(async res=>{
+        }).then( res=>{
             if(!res.ok) throw res
             return res
         })
     },
 
-    tockenValidation : async (id: string): Promise<any>=> {
+    tockenValidation : (id: string): Promise<any>=> {
         return fetch(HostUrl+"/auth/isATValid", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization" : "Bearer "+localStorage.getItem("VAT")
             }
-        }).then(async res=>{
+        }).then(res=>{
             if(!res.ok) throw res
             return res
         })
     },
 
-    refreshToken : async (refreshToken: string | null): Promise<any>=> {
-        if(!refreshToken) return
+    refreshToken : (refreshToken: string | null): Promise<any>=> {
         return fetch(HostUrl+"/auth/refreshToken", {
             method: "POST",
             headers: {
@@ -71,9 +84,9 @@ export const AuthAPI = {
                 "Authorization" : "Basic "+Buffer.from(clientInfo.id+":"+clientInfo.secret, "utf8").toString("base64")
             },
             body: JSON.stringify({
-                refresh_token: refreshToken
+                refresh_token: refreshToken ?? null
             })
-        }).then(async res=>{
+        }).then( res=>{
             if(!res.ok) throw res
             return res
         })

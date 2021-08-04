@@ -2,6 +2,7 @@ import React from "react";
 import {Redirect, Route} from "react-router-dom";
 import {recoil_User} from "../recoils/index"
 import {useRecoilValue} from "recoil";
+import Home from "../pages/Home";
 
 type Props = {
     role : number[]
@@ -10,11 +11,11 @@ type Props = {
 
   const HomeRouter = (props: Props) => {
 
-      const {role, id} = useRecoilValue(recoil_User.user)
+      const {role} = useRecoilValue(recoil_User.user)
 
       return (
           <Route exact path={props.path} render={
-              ()=>props.role.includes(role) ? <>안녕하세요 {id}님!</> : <Redirect to={"/auth"}/>
+              ()=>props.role.includes(role) ? <Home/> : <Redirect to={"/auth"}/>
           }/>
       )
   }
