@@ -103,10 +103,11 @@ const EmailFormContainer = () => {
         EmailAPI.verifyCode(email, authCode).then(async (res)=>{
             const result = await res.json()
             if(result.verified) setRegisterStatus(Enum_RegisterProgress.ID)
-            else throw result
+            else throw res
         }).catch(async res=>{
-            const result = await res.json()
-            if(!result.verified) setAuthCodeErrorObj({error:true, msg: "잘못된 인증코드 입니다."})
+
+            if(!res.verified) setAuthCodeErrorObj({error:true, msg: "잘못된 인증코드 입니다."})
+            else setAuthCodeErrorObj({error:true, msg: "서버 오류."})
 
         })
         //임시 코드
