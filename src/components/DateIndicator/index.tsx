@@ -36,14 +36,14 @@ const ViewBox = styled.svg`
 const DateBubble = styled.rect`
   width: 10px;
   height: 10px;
-  rx: 2px;
-  ry: 2px;
+
 `
 
 const Text = styled.text`
   font-size: 9px;
   fill: #24292e;
   user-select: none;
+  font-family: 'Noto Sans KR', sans-serif;
 `
 
 type Props = {
@@ -114,7 +114,7 @@ const DateIndicator = (props: Props) => {
 
                         {
                             dateBubble.map((date, i)=>{
-                                return <DateBubble fill={props.dateBubble.includes(date) ? "#63C2C6" : "#ebedf0"} x={dayOffset + Math.floor((i/7)) * 14} y={monthOffset + (i%7) * 14} data-date={date}/>
+                                return <DateBubble rx={2} ry={2} fill={props.dateBubble.includes(date) ? "#63C2C6" : "#ebedf0"} x={dayOffset + Math.floor((i/7)) * 14} y={monthOffset + (i%7) * 14} data-date={date}/>
                             })
                         }
                     </ViewBox>
