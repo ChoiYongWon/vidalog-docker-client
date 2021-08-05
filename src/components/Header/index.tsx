@@ -71,7 +71,7 @@ type UserIconMenuWrapperType = {
 const UserIconMenuWrapper = styled.ul`
   position: absolute;
   right: 0;
-  top: 100%;
+  top: calc(100% + 0.5rem);
   display : ${ (props:UserIconMenuWrapperType) => props.show ? "block;":"none;"}
   box-shadow: rgb(0 0 0 /10%) 0px 0px 8px;
   padding : 0;
@@ -118,21 +118,22 @@ const Header = (props:Props) => {
                     <MdSearch size={30} color={"rgb(52,58,64)"}/>
 
                 </SearchWrapper>
+                    <UserIconWrapper onClick={props.onClickUserIcon}>
+                        <OutsideClickHandler onOutsideClick={props.onCloseUserIcon}>
 
-                <UserIconWrapper onClick={props.onClickUserIcon}>
-                    <MdPersonOutline size={30} color={"rgb(52,58,64)"}/>
-                    <OutsideClickHandler onOutsideClick={props.onCloseUserIcon}>
+                            <MdPersonOutline size={30} color={"rgb(52,58,64)"}/>
+                        </OutsideClickHandler>
 
-                    </OutsideClickHandler>
+                        <UserIconMenuWrapper show={props.menuShow}>
+                            {
+                                props.menu.map((i,index)=><UserIconMenu key={index} onClick={props.menuOnClicks[index]}>{i}</UserIconMenu>)
+                            }
+                        </UserIconMenuWrapper>
+                    </UserIconWrapper>
 
-                </UserIconWrapper>
 
             </NavWrapper>
-            <UserIconMenuWrapper show={props.menuShow}>
-                {
-                    props.menu.map((i,index)=><UserIconMenu key={index} onClick={props.menuOnClicks[index]}>{i}</UserIconMenu>)
-                }
-            </UserIconMenuWrapper>
+
         </HeaderComponent>
     )
 }
