@@ -62,7 +62,6 @@ const UserIconWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  user-focus: none;
 `
 
 type UserIconMenuWrapperType = {

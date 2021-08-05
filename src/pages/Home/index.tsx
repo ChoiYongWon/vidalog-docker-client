@@ -11,7 +11,7 @@ const Home = () =>{
             <HeaderContainer/>
             <HomeLayout>
                 <DateIndicatorLayout>
-                    <Text value={"365일 동안 총 5번의 일기를 쓰셨습니다."} size={"16px"} color={"#24292e"}/>
+                    <Text value={"365일 동안 총 5번의 일기를 쓰셨습니다."} size={"14px"} color={"#24292e"}/>
                     <DateIndicator dateBubble={[
                         "2021-8-1",
                         "2021-8-2",

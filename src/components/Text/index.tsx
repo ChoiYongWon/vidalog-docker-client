@@ -11,7 +11,7 @@ const Component = styled.span`
   font-family: 'Noto Sans KR', sans-serif;
   color: ${(props: ComponentProps)=>props.color};
   user-select: none;
-  margin : 0.25rem 0;
+  margin : 0.3rem 0;
 `
 
 const defaultProps = {
