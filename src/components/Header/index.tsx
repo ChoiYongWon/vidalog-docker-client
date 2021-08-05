@@ -62,6 +62,7 @@ const UserIconWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+  user-focus: none;
 `
 
 type UserIconMenuWrapperType = {
@@ -109,7 +110,8 @@ const Header = (props:Props) => {
         <HeaderComponent>
 
                 <Link to={"/"} style={{
-                    textDecoration: "none"
+                    textDecoration: "none",
+                    outline: "none"
                 }}>
                     <Logo>Vidalog</Logo>
                 </Link>
@@ -118,18 +120,18 @@ const Header = (props:Props) => {
                     <MdSearch size={30} color={"rgb(52,58,64)"}/>
 
                 </SearchWrapper>
-                    <UserIconWrapper onClick={props.onClickUserIcon}>
-                        <OutsideClickHandler onOutsideClick={props.onCloseUserIcon}>
+                <UserIconWrapper onClick={props.onClickUserIcon}>
+                    <OutsideClickHandler onOutsideClick={props.onCloseUserIcon}>
 
-                            <MdPersonOutline size={30} color={"rgb(52,58,64)"}/>
-                        </OutsideClickHandler>
+                        <MdPersonOutline size={30} color={"rgb(52,58,64)"}/>
+                    </OutsideClickHandler>
 
-                        <UserIconMenuWrapper show={props.menuShow}>
-                            {
-                                props.menu.map((i,index)=><UserIconMenu key={index} onClick={props.menuOnClicks[index]}>{i}</UserIconMenu>)
-                            }
-                        </UserIconMenuWrapper>
-                    </UserIconWrapper>
+                    <UserIconMenuWrapper show={props.menuShow}>
+                        {
+                            props.menu.map((i,index)=><UserIconMenu key={index} onClick={props.menuOnClicks[index]}>{i}</UserIconMenu>)
+                        }
+                    </UserIconMenuWrapper>
+                </UserIconWrapper>
 
 
             </NavWrapper>
