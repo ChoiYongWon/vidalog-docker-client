@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
-import LogoImg from "../../img/logo.png"
 import OutsideClickHandler from 'react-outside-click-handler';
 import { MdSearch, MdPersonOutline } from "react-icons/md";
+import {Link} from "react-router-dom"
 
 const HeaderComponent = styled.header`
   position: sticky;
@@ -30,10 +30,16 @@ const HeaderComponent = styled.header`
   //}
 `
 
-const Logo = styled.img`
+const Logo = styled.div`
   height : 90%;
   width : auto;
   user-select: none;
+  font-family: 'Sriracha', cursive;
+  font-size: 22px;
+  color : rgb(52,58,64);
+  display : flex;
+  align-items: center;
+  white-space: nowrap;
 `
 
 const NavWrapper = styled.div`
@@ -46,12 +52,16 @@ const NavWrapper = styled.div`
 `
 
 const SearchWrapper = styled.div`
-  cursor: pointer
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 `
 
 const UserIconWrapper = styled.div`
   position: relative;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 `
 
 type UserIconMenuWrapperType = {
@@ -61,7 +71,7 @@ type UserIconMenuWrapperType = {
 const UserIconMenuWrapper = styled.ul`
   position: absolute;
   right: 0;
-  top: calc( 100% + 0.5rem);
+  top: 100%;
   display : ${ (props:UserIconMenuWrapperType) => props.show ? "block;":"none;"}
   box-shadow: rgb(0 0 0 /10%) 0px 0px 8px;
   padding : 0;
@@ -97,26 +107,32 @@ const Header = (props:Props) => {
 
     return (
         <HeaderComponent>
-            <Logo src={LogoImg}/>
+
+                <Link to={"/"} style={{
+                    textDecoration: "none"
+                }}>
+                    <Logo>Vidalog</Logo>
+                </Link>
             <NavWrapper>
                 <SearchWrapper>
-                    <MdSearch size={36} color={"#9a9a9a"}/>
+                    <MdSearch size={30} color={"rgb(52,58,64)"}/>
 
                 </SearchWrapper>
 
                 <UserIconWrapper onClick={props.onClickUserIcon}>
-                    <MdPersonOutline size={36} color={"#9a9a9a"}/>
+                    <MdPersonOutline size={30} color={"rgb(52,58,64)"}/>
                     <OutsideClickHandler onOutsideClick={props.onCloseUserIcon}>
-                        <UserIconMenuWrapper show={props.menuShow}>
-                            {
-                                props.menu.map((i,index)=><UserIconMenu key={index} onClick={props.menuOnClicks[index]}>{i}</UserIconMenu>)
-                            }
-                        </UserIconMenuWrapper>
+
                     </OutsideClickHandler>
 
                 </UserIconWrapper>
 
             </NavWrapper>
+            <UserIconMenuWrapper show={props.menuShow}>
+                {
+                    props.menu.map((i,index)=><UserIconMenu key={index} onClick={props.menuOnClicks[index]}>{i}</UserIconMenu>)
+                }
+            </UserIconMenuWrapper>
         </HeaderComponent>
     )
 }
