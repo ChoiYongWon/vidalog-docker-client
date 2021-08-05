@@ -11,7 +11,7 @@ export const EmailAPI = {
                 email : email
             })
         }).then(async (res)=>{
-            if(!res.ok) throw await res.json()
+            if(!res.ok) throw res
             return res
         })
     },
@@ -27,7 +27,7 @@ export const EmailAPI = {
                 verificationCode : code
             })
         }).then(async (res)=>{
-            if(!res.ok) throw await res.json()
+            if(!res.ok) throw res
             return res
         })
     }

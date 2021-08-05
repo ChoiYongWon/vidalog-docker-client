@@ -91,7 +91,7 @@ const EmailFormContainer = () => {
             //TODO 인증코드 요청 API
             EmailAPI.emailVerification(email).then(()=>{
                 setEmailAuthorization(true)
-            }).catch((res)=>{
+            }).catch((res:Response)=>{
                 console.dir(res)
                 if(res.status===406) setEmailErrorObj({error: true, msg : "이미 가입된 이메일 입니다."})
                 else if(res.status===500) setEmailErrorObj({error: true, msg : "메일이 전송되지 않았습니다."})
@@ -104,8 +104,9 @@ const EmailFormContainer = () => {
             const result = await res.json()
             if(result.verified) setRegisterStatus(Enum_RegisterProgress.ID)
             else throw result
-        }).catch(res=>{
-            if(!res.verified) setAuthCodeErrorObj({error:true, msg: "잘못된 인증코드 입니다."})
+        }).catch(async res=>{
+            const result = await res.json()
+            if(!result.verified) setAuthCodeErrorObj({error:true, msg: "잘못된 인증코드 입니다."})
 
         })
         //임시 코드

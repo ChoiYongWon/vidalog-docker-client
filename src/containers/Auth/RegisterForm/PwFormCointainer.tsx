@@ -74,7 +74,8 @@ const PwFormContainer = () => {
         //TODO Register Api
         AuthAPI.register(id, email, pw).then(()=>{
             setRegisterStatus(Enum_RegisterProgress.SUCCESS)
-        }).catch(()=>{
+        }).catch((e)=>{
+            console.log(e)
             setRePwErrorObj({error : true, msg : "회원가입 되지 않았습니다."})
         })
 

@@ -8,8 +8,8 @@ export const AuthAPI = {
                 "Content-Type": "application/json"
             }
         }).then(async res=>{
-            if(!res.ok) throw new Error()
-            return await res.json()
+            if(!res.ok) throw res
+            return res
         })
     },
 
@@ -25,8 +25,8 @@ export const AuthAPI = {
             })
 
         }).then(async res=>{
-            if(!res.ok) throw new Error()
-            return await res.json()
+            if(!res.ok) throw res
+            return res
         })
     },
 
@@ -44,8 +44,8 @@ export const AuthAPI = {
             })
 
         }).then(async res=>{
-            if(!res.ok) throw new Error()
-            return await res.json()
+            if(!res.ok) throw res
+            return res
         })
     },
 
@@ -57,8 +57,8 @@ export const AuthAPI = {
                 "Authorization" : "Bearer "+localStorage.getItem("VAT")
             }
         }).then(async res=>{
-            if(!res.ok) throw await res.json()
-            return await res.json()
+            if(!res.ok) throw res
+            return res
         })
     },
 
@@ -74,8 +74,8 @@ export const AuthAPI = {
                 refresh_token: refreshToken
             })
         }).then(async res=>{
-            if(!res.ok) throw await res.json()
-            return await res.json()
+            if(!res.ok) throw res
+            return res
         })
     },
     

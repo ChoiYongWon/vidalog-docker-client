@@ -50,8 +50,9 @@ const IdFormContainer = () => {
             return
         }
         //TODO id 중복 확인 api
-        AuthAPI.idValidation(id).then(res=>{
-            if(res.isValid) setRegisterStatus(Enum_RegisterProgress.PW)
+        AuthAPI.idValidation(id).then(async res=>{
+            const result = await res.json()
+            if(result.isValid) setRegisterStatus(Enum_RegisterProgress.PW)
             else setErrorObj({error: true, msg : "이미 존재하는 아이디 입니다."})
         }).catch(()=>{
             setErrorObj({error: true, msg : "서버 오류"})

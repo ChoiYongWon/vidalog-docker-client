@@ -43,7 +43,8 @@ const LoginFormContainer = () => {
             setAuthentication(Auth.LOGIN)
             setUser(payload as User)
             history.push("/")
-        }).catch(()=>{
+        }).catch((e)=>{
+            console.log(e)
             setErrorObj({
                 error : true,
                 msg : "아이디 또는 비밀번호가 틀립니다."
