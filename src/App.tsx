@@ -14,7 +14,9 @@ const GlobalStyle = createGlobalStyle`
     height : 100%;
     padding : 0;
     margin : 0;
-    
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   
   input, textarea, button {
