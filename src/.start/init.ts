@@ -21,7 +21,8 @@ export const Init = {
                     const result = await res.json()
                     localStorage.setItem("VAT",result.access_token)
                     localStorage.setItem("VRT",result.refresh_token)
-                    return resolve(true)
+                    const {iat, exp, ...rest} = jwt.decode(result.access_token) as jwt.JwtPayload
+                    return resolve(rest)
                     }).catch(()=>{
                         //Refresh 만료
                         return reject(false)
