@@ -36,7 +36,10 @@ export const AuthAPI = {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization" : "Bearer "+localStorage.getItem("VAT")
-            }
+            },
+            body: JSON.stringify({
+                refreshToken: localStorage.getItem("VRT") ?? ""
+            })
 
         }).then(res=>{
             if(!res.ok) throw res
