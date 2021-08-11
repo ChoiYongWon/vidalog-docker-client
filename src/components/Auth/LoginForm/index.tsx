@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React from "react"
 import Logo from "../../../img/logo.png"
 import InputText from "../InputText";
-import Button from "../Button";
+import Button from "../../Button";
 
 
 const Wrapper = styled.div`

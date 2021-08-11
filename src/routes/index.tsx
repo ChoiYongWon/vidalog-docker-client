@@ -4,6 +4,7 @@ import HomeRouter from "./home"
 import AuthRouter from "./auth";
 import React from "react";
 import {Role} from "../types/Auth";
+import EditRouter from "./edit";
 
 
 export const RouterIndex = () => {
@@ -11,8 +12,9 @@ export const RouterIndex = () => {
   return (
       <Router>
         <Switch>
-            <AuthRouter path={"/auth"} role={[Role.GUEST]}></AuthRouter>
-            <HomeRouter path={"/"} role={[Role.USER]}></HomeRouter>
+            <EditRouter path={"/edit"} role={[Role.USER, Role.ADMIN]}/>
+            <AuthRouter path={"/auth"} role={[Role.GUEST]}/>
+            <HomeRouter path={"/"} role={[Role.USER]}/>
         </Switch>
       </Router>
 

@@ -3,15 +3,8 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Editor from './index';
 
 export default {
-    title: 'Components/PostEditor',
+    title: 'Components/Editor',
     component: Editor,
-    // decorators: [
-    //     (Story) => (
-    //         <div style={{ width : '1000px' }}>
-    //             <Story/>
-    //         </div>
-    //     ),
-    // ],
 
 } as ComponentMeta<typeof Editor>;
 
