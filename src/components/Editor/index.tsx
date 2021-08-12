@@ -19,7 +19,7 @@ const Wrapper = styled.form`
   padding: 0;
   box-sizing: border-box;
   transform: ${(props:WrapperProps)=> props.isImageEmpty ? "translateY(-3.5rem)" : "translateY(0)"};
-  transition: 0.5s ease all;
+  transition: 0.5s linear all;
 `
 
 type IconWrapperProps = {
@@ -43,7 +43,7 @@ const HeadWrapper = styled.div`
   gap: 1rem;
   justify-content: space-between;
   transform: ${(props:HeaderWrapperProps)=> props.isImageEmpty ? "translateY(7rem)" : "translateY(0)"};
-  transition: 0.5s ease all;
+  transition: 0.5s linear all;
 `
 
 type ImageWrapperProps = {
@@ -61,7 +61,7 @@ const ImageWrapper = styled.div`
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   box-sizing: border-box;
-  transition: 0.5s ease all;
+  transition: 0.5s linear all;
   padding: 0;
   
   &::-webkit-scrollbar {
@@ -144,6 +144,8 @@ const ImageSelector = styled.input`
 const ImageSelectorLabel = styled.label`
   width: 5rem;
   height: 5rem;
+  min-width: 5rem;
+  min-height: 5rem;
   background: #ebedf0;
   padding: 0;
   margin: 0;
