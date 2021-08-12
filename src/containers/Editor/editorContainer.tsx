@@ -18,6 +18,7 @@ const EditorContainer = () => {
             //unmount 될때 메모리 누수 방지
             imageUrls.forEach((url)=>URL.revokeObjectURL(url))
         }
+        // eslint-disable-next-line
     }, [])
 
     useEffect(()=>{
