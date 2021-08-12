@@ -108,13 +108,13 @@ const DateIndicator = (props: Props) => {
                         <Text x={0} y={monthOffset + 13 * 6}>Fri</Text>
                         {
                             monthPosition.map((month, i)=>{
-                                return (month) ? <Text x={dayOffset + i * 14} y={14}>{month}</Text> : null
+                                return (month) ? <Text key={i} x={dayOffset + i * 14} y={14}>{month}</Text> : null
                             })
                         }
 
                         {
                             dateBubble.map((date, i)=>{
-                                return <DateBubble rx={2} ry={2} fill={props.dateBubble.includes(date) ? "#63C2C6" : "#ebedf0"} x={dayOffset + Math.floor((i/7)) * 14} y={monthOffset + (i%7) * 14} data-date={date}/>
+                                return <DateBubble key={i} rx={2} ry={2} fill={props.dateBubble.includes(date) ? "#63C2C6" : "#ebedf0"} x={dayOffset + Math.floor((i/7)) * 14} y={monthOffset + (i%7) * 14} data-date={date}/>
                             })
                         }
                     </ViewBox>

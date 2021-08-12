@@ -18,8 +18,8 @@ const Wrapper = styled.form`
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
-  transform: ${(props:WrapperProps)=> props.isImageEmpty ? "translateY(-3.5rem)" : "translateY(0)"};
-  transition: 0.5s linear all;
+  transform: ${(props:WrapperProps)=> props.isImageEmpty ? "translateY(-7rem)" : "translateY(0)"};
+  transition: .2s ease all;
 `
 
 type IconWrapperProps = {
@@ -43,7 +43,7 @@ const HeadWrapper = styled.div`
   gap: 1rem;
   justify-content: space-between;
   transform: ${(props:HeaderWrapperProps)=> props.isImageEmpty ? "translateY(7rem)" : "translateY(0)"};
-  transition: 0.5s linear all;
+  transition: .2s ease all;
 `
 
 type ImageWrapperProps = {
@@ -59,9 +59,10 @@ const ImageWrapper = styled.div`
   display: flex;
   gap: 1rem;
   overflow-x: scroll;
+  -webkit-overflow-scrolling:touch;
   scroll-snap-type: x mandatory;
   box-sizing: border-box;
-  transition: 0.5s linear all;
+  transition: .2s ease all;
   padding: 0;
   
   &::-webkit-scrollbar {

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from "react"
+import React, {ChangeEvent, useCallback, useEffect, useState} from "react"
 import Editor from "../../components/Editor";
 
 type ImageFilesType = {
@@ -13,6 +13,12 @@ const EditorContainer = () => {
     const [imageFiles, setImageFiles] = useState<ImageFilesType[]>([])
     const [checkedImage, setCheckedImage] = useState<string[]>([])
 
+    useEffect(()=>{
+        return ()=>{
+            //unmount 될때 메모리 누수 방지
+            imageUrls.forEach((url)=>URL.revokeObjectURL(url))
+        }
+    }, [])
 
     useEffect(()=>{
         setImageUrls((state)=>{
@@ -26,24 +32,23 @@ const EditorContainer = () => {
             return arr
         })
         setCheckedImage([])
-        for(let i in imageFiles){
-            console.log(imageFiles[i].key)
-        }
     }, [imageFiles])
 
-    const onFileChange = (e:ChangeEvent<any>) => {
+    const onFileChange = useCallback((e:ChangeEvent<any>) => {
+        console.log("FileChange")
         setImageFiles((state)=>{
             let arr = []
             let stagedImg = state.map(data=>data.key)
             for(let i of e.target.files){
                 //중복이미지 제거
+                alert(i.name)
                 if(!stagedImg.includes(i.name))
                     arr.push({key: i.name, value: i})
             }
 
             return [...state, ...arr]
         })
-    }
+    },[])
 
     const onDelete = (e:any) => {
         setImageFiles((state)=>{
