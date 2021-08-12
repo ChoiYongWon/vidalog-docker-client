@@ -16,15 +16,13 @@ const EditorContainer = () => {
     useEffect(()=>{
         return ()=>{
             //unmount 될때 메모리 누수 방지
-            imageUrls.forEach((url)=>URL.revokeObjectURL(url))
+            imageUrls.forEach((url)=> URL.revokeObjectURL(url))
         }
         // eslint-disable-next-line
-    }, [])
+    }, [imageUrls])
 
     useEffect(()=>{
         setImageUrls((state)=>{
-            //메모리 누수 방지
-            state.forEach((url)=>URL.revokeObjectURL(url))
 
             const arr : string[] = []
             for(let i in imageFiles){
@@ -36,37 +34,32 @@ const EditorContainer = () => {
     }, [imageFiles])
 
     const onFileChange = useCallback((e:ChangeEvent<any>) => {
-        console.log("FileChange")
         setImageFiles((state)=>{
             let arr = []
-            let stagedImg = state.map(data=>data.key)
+            // let stagedImg = state.map(data=>data.key)
             for(let i of e.target.files){
-                //중복이미지 제거
-                alert(i.name)
-                if(!stagedImg.includes(i.name))
-                    arr.push({key: i.name, value: i})
+                arr.push({key: i.name, value: i})
+                //중복이미지 제거 --> 아이폰은 안됨
+                // if(!stagedImg.includes(i.name))
+                //     arr.push({key: i.name, value: i})
             }
 
             return [...state, ...arr]
         })
     },[])
 
-    const onDelete = (e:any) => {
+    const onDelete = useCallback((e:any) => {
         setImageFiles((state)=>{
-            return state.filter((data, index)=>{
-                console.log(checkedImage, data.key)
-                return !checkedImage.includes(index+"")
-            })
+            return state.filter((data, index)=>!checkedImage.includes(index+""))
         })
-    }
+    }, [checkedImage])
 
-    const onImageCheck = (e:any) => {
+    const onImageCheck = useCallback((e:any) => {
         const checkedData = e.currentTarget.dataset.key
-        console.log(checkedData)
         setCheckedImage((state)=>{
             return (state.includes(checkedData)) ? state.filter((data)=>data!==checkedData) : [...state, checkedData]
         })
-    }
+    }, [])
 
     return <Editor
         imageUrls={imageUrls}

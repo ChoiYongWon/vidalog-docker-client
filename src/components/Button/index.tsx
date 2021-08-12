@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {memo} from "react";
 
 type ButtonProps = {
     status? : boolean
@@ -58,4 +59,4 @@ const Button = styled.input`
   cursor : pointer;
 `
 
-export default Button
+export default memo(Button)
