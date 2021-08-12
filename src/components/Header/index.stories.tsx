@@ -16,6 +16,7 @@ export const Default : React.VFC<{}> = () => {
         menuShow={true}
         onClickUserIcon={()=>{}}
         onCloseUserIcon={()=>{}}
+        editOnClick={()=>{}}
     />
 }
 

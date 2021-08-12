@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import {LogoutProcess} from "../../services/LogoutProcess";
 import {useResetRecoilState} from "recoil";
 import {recoil_Auth, recoil_User} from "../../recoils";
+import {useHistory} from "react-router-dom"
 
 const HeaderContainer = () =>{
 
@@ -17,6 +18,7 @@ const HeaderContainer = () =>{
     ]
 
     const [menuShow, setMenuShow] = useState(false)
+    const history = useHistory()
 
     const onClickUserIcon = () => {
         setMenuShow((state)=>!state)
@@ -26,6 +28,10 @@ const HeaderContainer = () =>{
         setMenuShow(false)
     }
 
+    const editOnClick = () => {
+        history.push("edit")
+    }
+
     return (
         <Header
             menu={menu}
@@ -33,6 +39,7 @@ const HeaderContainer = () =>{
             menuShow={menuShow}
             onClickUserIcon={onClickUserIcon}
             onCloseUserIcon={onCloseUserIcon}
+            editOnClick={editOnClick}
         />
     )
 

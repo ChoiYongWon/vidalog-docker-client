@@ -1,36 +1,59 @@
 import React, {ChangeEvent} from "react"
 import styled from "styled-components"
-import { MdAdd } from "react-icons/md"
-import {AiOutlineDelete} from "react-icons/ai"
+import { MdAdd, MdDelete} from "react-icons/md"
 import Button from "../Button";
+
+type WrapperProps = {
+    isImageEmpty: boolean
+}
+
 
 const Wrapper = styled.form`
   width: 100%;
   height : auto;
-  max-width: 400px;
+  max-width: 550px;
   display : flex;
   flex-direction: column;
   gap: 1rem;
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
+  transform: ${(props:WrapperProps)=> props.isImageEmpty ? "translateY(-3.5rem)" : "translateY(0)"};
+  transition: 0.5s ease all;
 `
 
-type IconWrapperType = {
-    isImageEmpty : boolean
+type IconWrapperProps = {
+    isChecked: boolean
 }
 
 const IconWrapper = styled.div`
+  opacity: ${(props:IconWrapperProps)=>props.isChecked ? 1 : 0};
+  visibility: ${(props:IconWrapperProps)=>props.isChecked ? "visible" : "hidden"};
+  cursor: pointer;
+`
+
+type HeaderWrapperProps = {
+    isImageEmpty: boolean
+}
+
+const HeadWrapper = styled.div`
   width: 100%;
   height: auto;
   display: flex;
-  opacity: ${(props:IconWrapperType)=>props.isImageEmpty ? 0 : 1};
-  visibility: ${(props:IconWrapperType)=>props.isImageEmpty ? "hidden" : "visible"};
   gap: 1rem;
-  justify-content: flex-end;
+  justify-content: space-between;
+  transform: ${(props:HeaderWrapperProps)=> props.isImageEmpty ? "translateY(7rem)" : "translateY(0)"};
+  transition: 0.5s ease all;
 `
 
+type ImageWrapperProps = {
+    isImageEmpty: boolean
+}
+
 const ImageWrapper = styled.div`
+  transform: ${(props:ImageWrapperProps)=> props.isImageEmpty ? "translateY(7rem)" : "translateY(0)"};
+  opacity: ${(props:ImageWrapperProps)=> props.isImageEmpty ? "0" : "1"};
+  visibility: ${(props:ImageWrapperProps)=>props.isImageEmpty ? "hidden" : "visible"};
   width: 100%;
   height: 5.5rem;
   display: flex;
@@ -38,7 +61,7 @@ const ImageWrapper = styled.div`
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   box-sizing: border-box;
-  
+  transition: 0.5s ease all;
   padding: 0;
   
   &::-webkit-scrollbar {
@@ -66,7 +89,15 @@ const ImageWrapper = styled.div`
     background-color: transparent;
     border-radius: 8px;
   }
-  
+`
+
+const DateWrapper = styled.span`
+  font-size: 0.875rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  color : rgb(52,58,64);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
 `
 
 type ImageBlockProps = {
@@ -79,6 +110,7 @@ const ImageBlock = styled.div`
   scroll-snap-align: end;
   box-sizing: border-box;
   opacity: ${(props:ImageBlockProps)=>props.isChecked ? "0.2":"1" };
+  cursor: pointer;
 `
 
 const PreviewImage = styled.img`
@@ -86,7 +118,6 @@ const PreviewImage = styled.img`
   height: 5rem;
   border-radius: 0.2rem;
   object-fit: cover;
-
 `
 
 
@@ -134,6 +165,7 @@ const TextEditor = styled.textarea`
   border-radius: 8px;
   overflow: auto;
   resize: none;
+  color : rgb(52,58,64);
   padding: 0.2rem;
   border: none;
   font-size: 14px;
@@ -193,22 +225,22 @@ const defaultProps = {
     onImageCheck: (e:any)=>{},
     onDelete: (e:any)=>{},
     checkedImage: [] as string[]
-
 }
 
 const Editor = (props: Props) => {
 
 
     return (
-        <Wrapper >
-            <IconWrapper isImageEmpty={props.imageUrls.length===0}>
-                <AiOutlineDelete onClick={props.onDelete} size={30} color={(props.checkedImage.length>0 ? "#f05650" : "#a9a9a9")}/>
-            </IconWrapper>
-            <ImageWrapper>
+        <Wrapper isImageEmpty={props.imageUrls.length===0}>
+            <HeadWrapper isImageEmpty={props.imageUrls.length===0}>
+                <DateWrapper>2021. 8. 24 화</DateWrapper>
+                <IconWrapper isChecked={props.checkedImage.length!==0}>
+                    <MdDelete onClick={props.onDelete} size={30} color={"#f05650"}/>
+                </IconWrapper>
+            </HeadWrapper>
+            <ImageWrapper isImageEmpty={props.imageUrls.length===0}>
                 {
                     props.imageUrls.map((i,index)=>{
-                        console.log("다시그림")
-                        console.log(props.checkedImage.includes(index+""))
                         return <ImageBlock isChecked={props.checkedImage.includes(index+"")} key={index} onClick={props.onImageCheck} data-key={index}><PreviewImage src={i}/></ImageBlock>
                     })
                 }

@@ -7,7 +7,7 @@ const Layout = styled.div`
   display : flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 0 2rem;
 `
 
 type Props = {

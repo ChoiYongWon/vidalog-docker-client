@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import OutsideClickHandler from 'react-outside-click-handler';
-import { MdSearch, MdPersonOutline } from "react-icons/md";
+import { MdPersonOutline, MdCreate } from "react-icons/md";
 import {Link} from "react-router-dom"
 
 const HeaderComponent = styled.header`
@@ -99,7 +99,8 @@ type Props = {
     onCloseUserIcon: ()=>void,
     menuShow: boolean,
     menu: string[],
-    menuOnClicks: (()=>void)[]
+    menuOnClicks: (()=>void)[],
+    editOnClick : ()=>void
 
 }
 
@@ -116,7 +117,7 @@ const Header = (props:Props) => {
                 </Link>
             <NavWrapper>
                 <SearchWrapper>
-                    <MdSearch size={30} color={"rgb(52,58,64)"}/>
+                    <MdCreate size={30} color={"rgb(52,58,64)"} onClick={props.editOnClick}/>
 
                 </SearchWrapper>
                 <UserIconWrapper onClick={props.onClickUserIcon}>
