@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react"
 import styled from "styled-components"
 import { MdAdd } from "react-icons/md"
-import { AiOutlineCrown,AiOutlineDelete} from "react-icons/ai"
+import {AiOutlineDelete} from "react-icons/ai"
 import Button from "../Button";
 
 const Wrapper = styled.form`
@@ -11,7 +11,7 @@ const Wrapper = styled.form`
   display : flex;
   flex-direction: column;
   gap: 1rem;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
 `
@@ -63,17 +63,27 @@ const ImageWrapper = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: transparent;
     border-radius: 8px;
   }
+  
+`
 
-\`
+type ImageBlockProps = {
+    isChecked : boolean
+}
+
+const ImageBlock = styled.div`
+  width: auto;
+  height: auto;
+  scroll-snap-align: end;
+  box-sizing: border-box;
+  opacity: ${(props:ImageBlockProps)=>props.isChecked ? "0.2":"1" };
 `
 
 const PreviewImage = styled.img`
   width: 5rem;
   height: 5rem;
-  scroll-snap-align: end;
   border-radius: 0.2rem;
   object-fit: cover;
 
@@ -159,6 +169,8 @@ const TextEditor = styled.textarea`
   }
 `
 
+
+
 const ButtonWrapper = styled.div`
   width: 100%;
   height: auto;
@@ -170,11 +182,18 @@ const ButtonWrapper = styled.div`
 type Props = {
     imageUrls: string[]
     onFileChange: (e:ChangeEvent<any>)=>void
+    onImageCheck: (e:any)=>void
+    onDelete: (e:any)=>void
+    checkedImage: string[]
 } & typeof defaultProps
 
 const defaultProps = {
-    imageUrls: [],
-    onFileChange: (e:ChangeEvent<any>)=>{console.log(e.target.files)}
+    imageUrls: [] as string[],
+    onFileChange: (e:ChangeEvent<any>)=>{console.log(e.target.files)},
+    onImageCheck: (e:any)=>{},
+    onDelete: (e:any)=>{},
+    checkedImage: [] as string[]
+
 }
 
 const Editor = (props: Props) => {
@@ -183,19 +202,20 @@ const Editor = (props: Props) => {
     return (
         <Wrapper >
             <IconWrapper isImageEmpty={props.imageUrls.length===0}>
-                <AiOutlineCrown size={30} color={"#a9a9a9"}/>
-                <AiOutlineDelete size={30} color={"#a9a9a9"}/>
+                <AiOutlineDelete onClick={props.onDelete} size={30} color={(props.checkedImage.length>0 ? "#f05650" : "#a9a9a9")}/>
             </IconWrapper>
             <ImageWrapper>
                 {
-                    props.imageUrls.map((i)=>{
-                        return <div><PreviewImage src={i}/></div>
+                    props.imageUrls.map((i,index)=>{
+                        console.log("다시그림")
+                        console.log(props.checkedImage.includes(index+""))
+                        return <ImageBlock isChecked={props.checkedImage.includes(index+"")} key={index} onClick={props.onImageCheck} data-key={index}><PreviewImage src={i}/></ImageBlock>
                     })
                 }
 
             </ImageWrapper>
             <ContentWrapper>
-                <ImageSelector id={"editor-image-selector"} type={"file"} accept={".gif, .jpg, .png"} onChange={props.onFileChange}/>
+                <ImageSelector id={"editor-image-selector"} type={"file"} accept={".gif, .jpg, .png"} onChange={props.onFileChange} multiple={true}/>
                 <ImageSelectorLabel htmlFor={"editor-image-selector"}>
                     <MdAdd size={30} color={"#a9a9a9"}/>
                 </ImageSelectorLabel>
