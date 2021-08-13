@@ -22,13 +22,18 @@ const ImageSelector = styled.input`
   padding: 0;
   margin: 0;
   display: none;
+  
+  @media(max-width: 500px){
+    width: 5rem;
+    height: 5rem;
+  }
 `
 
 const ImageSelectorLabel = styled.label`
   width: 6rem;
   height: 6rem;
-  min-width: 5rem;
-  min-height: 5rem;
+  min-width: 6rem;
+  min-height: 6rem;
   background: #ebedf0;
   padding: 0;
   margin: 0;
@@ -38,6 +43,13 @@ const ImageSelectorLabel = styled.label`
   box-sizing: border-box;
   border-radius: 8px;
   cursor: pointer;
+  
+  @media(max-width: 500px){
+    width: 5rem;
+    height: 5rem;
+    min-width: 5rem;
+    min-height: 5rem;
+  }
 `
 
 const TextEditor = styled.textarea`
@@ -59,6 +71,10 @@ const TextEditor = styled.textarea`
   letter-spacing: normal;
   word-spacing: normal;
   pointer-events: visible;
+
+  @media(max-width: 500px){
+    height: 5rem;
+  }
   
   &::-webkit-scrollbar {
     width: 0.3rem;

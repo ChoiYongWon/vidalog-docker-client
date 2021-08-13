@@ -28,6 +28,12 @@ const HeadWrapper = styled.div`
   transform: ${(props:ImageEmptyProps)=> props.isImageEmpty ? "translateY(7.25rem)" : "translateY(0)"};
   transition: .2s ease all;
   pointer-events: visible;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  
+  @media(max-width: 500px){
+    transform: ${(props:ImageEmptyProps)=> props.isImageEmpty ? "translateY(6.25rem)" : "translateY(0)"};
+  }
 `
 
 const ImageWrapper = styled.div`
@@ -35,7 +41,6 @@ const ImageWrapper = styled.div`
   opacity: ${(props:ImageEmptyProps)=> props.isImageEmpty ? "0" : "1"};
   visibility: ${(props:ImageEmptyProps)=>props.isImageEmpty ? "hidden" : "visible"};
   pointer-events: visible;
-
   width: 100%;
   height: 6.3rem;
   display: flex;
@@ -45,7 +50,12 @@ const ImageWrapper = styled.div`
   scroll-snap-type: x mandatory;
   box-sizing: border-box;
   transition: .2s ease all;
-  padding: 0;
+  padding: 0 1rem;
+
+  @media(max-width: 500px){
+    height: 5.3rem;
+    transform: ${(props:ImageEmptyProps)=> props.isImageEmpty ? "translateY(6.25rem)" : "translateY(0)"};
+  }
   
   &::-webkit-scrollbar {
     height: 0.3rem;
@@ -101,8 +111,13 @@ const ImageBlock = styled.div`
 const PreviewImage = styled.img`
   width: 6rem;
   height: 6rem;
-  border-radius: 0.2rem;
+  border-radius: 0.3rem;
   object-fit: cover;
+  
+  @media(max-width: 500px){
+    width: 5rem;
+    height: 5rem;
+  }
 `
 
 type Props = {

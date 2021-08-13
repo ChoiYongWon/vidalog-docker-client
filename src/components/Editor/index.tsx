@@ -22,6 +22,10 @@ const Wrapper = styled.form`
   transform: ${(props:WrapperProps)=> props.isImageEmpty ? "translateY(-7.25rem)" : "translateY(0)"};
   transition: .2s ease all;
   pointer-events: none;
+
+  @media(max-width: 500px){
+    transform: ${(props:WrapperProps)=> props.isImageEmpty ? "translateY(-6.25rem)" : "translateY(0)"};
+  }
 `
 
 
