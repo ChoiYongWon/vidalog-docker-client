@@ -45,6 +45,7 @@ type Props = {
     onFileChange: (e:ChangeEvent<any>)=>void
     onImageCheck: (e:any)=>void
     onDelete: (e:any)=>void
+    onSuccessClick: (e:any)=>void
     checkedImage: string[]
 } & typeof defaultProps
 
@@ -53,6 +54,7 @@ const defaultProps = {
     onFileChange: (e:ChangeEvent<any>)=>{console.log(e.target.files)},
     onImageCheck: (e:any)=>{},
     onDelete: (e:any)=>{},
+    onSuccessClick: (e:any)=>{},
     checkedImage: [] as string[]
 }
 
@@ -65,7 +67,7 @@ const Editor = (props: Props) => {
             <TextBox onFileChange={props.onFileChange}/>
             <ButtonWrapper>
                 <Button type={"button"} types={"prev"} value={"취소"}></Button>
-                <Button type={"submit"} types={"next"} value={"완료"}></Button>
+                <Button type={"submit"} types={"next"} value={"완료"} onClick={props.onSuccessClick}></Button>
             </ButtonWrapper>
         </Wrapper>
 

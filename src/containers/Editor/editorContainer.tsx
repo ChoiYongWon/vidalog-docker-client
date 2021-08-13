@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useCallback, useEffect, useState} from "react"
 import Editor from "../../components/Editor";
-
+import {PostAPI} from "../../api/PostAPI"
 type ImageFilesType = {
     key: string, //파일명
-    value: typeof File
+    value: any
 }
 
 const EditorContainer = () => {
@@ -61,12 +61,24 @@ const EditorContainer = () => {
         })
     }, [])
 
+    const onSuccessClick = useCallback(async (e:any)=>{
+        e.preventDefault()
+        const data = new FormData()
+        for(let image in imageFiles){
+            console.log(imageFiles[image])
+            data.append("images", imageFiles[image].value, imageFiles[image].key)
+        }
+        data.append("content", "히히히")
+        await PostAPI.uploadPost(data)
+    }, [imageFiles])
+
     return <Editor
         imageUrls={imageUrls}
         onFileChange={onFileChange}
         onImageCheck={onImageCheck}
         onDelete={onDelete}
         checkedImage={checkedImage}
+        onSuccessClick={onSuccessClick}
     />
 }
 
