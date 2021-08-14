@@ -46,6 +46,7 @@ const EditorContainer = () => {
 
             return [...state, ...arr]
         })
+        e.target.value = ""
     },[])
 
     const onDelete = useCallback((e:any) => {
