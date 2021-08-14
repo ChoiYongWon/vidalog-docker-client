@@ -47,6 +47,7 @@ type Props = {
     onDelete: (e:any)=>void
     onSuccessClick: (e:any)=>void
     checkedImage: string[]
+    fileInputRef: any
 } & typeof defaultProps
 
 const defaultProps = {
@@ -55,7 +56,8 @@ const defaultProps = {
     onImageCheck: (e:any)=>{},
     onDelete: (e:any)=>{},
     onSuccessClick: (e:any)=>{},
-    checkedImage: [] as string[]
+    checkedImage: [] as string[],
+    fileInputRef: null
 }
 
 const Editor = (props: Props) => {
@@ -64,7 +66,7 @@ const Editor = (props: Props) => {
     return (
         <Wrapper isImageEmpty={props.imageUrls.length===0}>
             <ImagePreview imageUrls={props.imageUrls} onDelete={props.onDelete} checkedImage={props.checkedImage} onImageCheck={props.onImageCheck}/>
-            <TextBox onFileChange={props.onFileChange}/>
+            <TextBox onFileChange={props.onFileChange} fileInputRef={props.fileInputRef}/>
             <ButtonWrapper>
                 <Button type={"button"} types={"prev"} value={"취소"}></Button>
                 <Button type={"submit"} types={"next"} value={"완료"} onClick={props.onSuccessClick}></Button>

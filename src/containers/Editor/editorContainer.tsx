@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from "react"
+import React, {ChangeEvent, useCallback, useEffect, useRef, useState} from "react"
 import Editor from "../../components/Editor";
 import {PostAPI} from "../../api/PostAPI"
 type ImageFilesType = {
@@ -12,9 +12,11 @@ const EditorContainer = () => {
     //File 객체를 담고있음
     const [imageFiles, setImageFiles] = useState<ImageFilesType[]>([])
     const [checkedImage, setCheckedImage] = useState<string[]>([])
+    const FileInputRef = useRef<any>(null)
 
     useEffect(()=>{
         return ()=>{
+            FileInputRef.current.value = ""
             //unmount 될때 메모리 누수 방지
             imageUrls.forEach((url)=> URL.revokeObjectURL(url))
         }
@@ -23,7 +25,7 @@ const EditorContainer = () => {
 
     useEffect(()=>{
         setImageUrls((state)=>{
-
+            console.log("imageFIle", state)
             const arr : string[] = []
             for(let i in imageFiles){
                 arr.push(URL.createObjectURL(imageFiles[i].value))
@@ -43,10 +45,8 @@ const EditorContainer = () => {
                 // if(!stagedImg.includes(i.name))
                 //     arr.push({key: i.name, value: i})
             }
-
             return [...state, ...arr]
         })
-        e.target.value = ""
     },[])
 
     const onDelete = useCallback((e:any) => {
@@ -80,6 +80,7 @@ const EditorContainer = () => {
         onDelete={onDelete}
         checkedImage={checkedImage}
         onSuccessClick={onSuccessClick}
+        fileInputRef = {FileInputRef}
     />
 }
 

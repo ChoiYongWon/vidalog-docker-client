@@ -105,10 +105,12 @@ const TextEditor = styled.textarea`
 
 type Props = {
     onFileChange: (e:ChangeEvent<any>)=>void
+    fileInputRef: any
 } & typeof defaultProps
 
 const defaultProps = {
     onFileChange: (e:ChangeEvent<any>)=>{console.log(e.target.files)},
+    fileInputRef: null
 }
 
 const TextBox = (props: Props) => {
@@ -117,7 +119,7 @@ const TextBox = (props: Props) => {
     return (
 
             <ContentWrapper>
-                <ImageSelector id={"editor-image-selector"} type={"file"} accept={".gif, .jpg, .png"} onChange={props.onFileChange} multiple={true}/>
+                <ImageSelector ref={props.fileInputRef} id={"editor-image-selector"} type={"file"} accept={".gif, .jpg, .png"} onChange={props.onFileChange} multiple={true}/>
                 <ImageSelectorLabel htmlFor={"editor-image-selector"}>
                     <MdAdd size={30} color={"#a9a9a9"}/>
                 </ImageSelectorLabel>
