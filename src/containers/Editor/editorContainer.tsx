@@ -15,8 +15,8 @@ const EditorContainer = () => {
     const FileInputRef = useRef<any>(null)
 
     useEffect(()=>{
+        FileInputRef.current.value = ""
         return ()=>{
-            FileInputRef.current.value = ""
             //unmount 될때 메모리 누수 방지
             imageUrls.forEach((url)=> URL.revokeObjectURL(url))
         }
@@ -25,7 +25,6 @@ const EditorContainer = () => {
 
     useEffect(()=>{
         setImageUrls((state)=>{
-            console.log("imageFIle", state)
             const arr : string[] = []
             for(let i in imageFiles){
                 arr.push(URL.createObjectURL(imageFiles[i].value))
