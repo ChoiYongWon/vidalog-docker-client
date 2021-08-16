@@ -25,7 +25,6 @@ const ContentWrapper = styled.div`
   gap: 0.5rem;
   border-radius: 0.5rem;
   padding: 1rem;
-  will-change: transform;
   box-shadow : rgb(0 0 0 / 15%) 0px 0px 10px;
   box-sizing: border-box;
   pointer-events: visible;
