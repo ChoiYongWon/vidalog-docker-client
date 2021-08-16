@@ -3,6 +3,7 @@ import styled from "styled-components"
 import Button from "../Button";
 import ImagePreview from "./ImagePreview";
 import TextBox from "./TextBox";
+import Location from "./Location"
 
 type WrapperProps = {
     isImageEmpty: boolean
@@ -45,9 +46,14 @@ type Props = {
     onFileChange: (e:ChangeEvent<any>)=>void
     onImageCheck: (e:any)=>void
     onDelete: (e:any)=>void
+    onCancelClick: (e:any)=>void
     onSuccessClick: (e:any)=>void
     checkedImage: string[]
     fileInputRef: any
+    textInputRef: any
+    locationInputRef: any
+    textBoxStatus: string
+    locationBoxStatus: string
 } & typeof defaultProps
 
 const defaultProps = {
@@ -55,9 +61,14 @@ const defaultProps = {
     onFileChange: (e:ChangeEvent<any>)=>{console.log(e.target.files)},
     onImageCheck: (e:any)=>{},
     onDelete: (e:any)=>{},
+    onCancelClick: (e: any)=>{},
     onSuccessClick: (e:any)=>{},
     checkedImage: [] as string[],
-    fileInputRef: null
+    fileInputRef: null,
+    textInputRef: null,
+    locationInputRef: null,
+    textBoxStatus: "stable",
+    locationBoxStatus: "stable"
 }
 
 const Editor = (props: Props) => {
@@ -66,10 +77,11 @@ const Editor = (props: Props) => {
     return (
         <Wrapper isImageEmpty={props.imageUrls.length===0}>
             <ImagePreview imageUrls={props.imageUrls} onDelete={props.onDelete} checkedImage={props.checkedImage} onImageCheck={props.onImageCheck}/>
-            <TextBox onFileChange={props.onFileChange} fileInputRef={props.fileInputRef}/>
+            <TextBox status={props.textBoxStatus} onFileChange={props.onFileChange} fileInputRef={props.fileInputRef} textInputRef={props.textInputRef}/>
+            <Location status={props.locationBoxStatus} locationInputRef={props.locationInputRef}/>
             <ButtonWrapper>
-                <Button type={"button"} types={"prev"} value={"취소"}></Button>
-                <Button type={"submit"} types={"next"} value={"완료"} onClick={props.onSuccessClick}></Button>
+                <Button type={"button"} types={"prev"} value={"취소"} onClick={props.onCancelClick}></Button>
+                <Button type={"submit"} types={"next"} value={"완료"} status={true} onClick={props.onSuccessClick}></Button>
             </ButtonWrapper>
         </Wrapper>
 

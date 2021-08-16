@@ -1,8 +1,22 @@
 import React, {ChangeEvent, memo} from "react"
-import styled from "styled-components"
+import styled, {css, keyframes} from "styled-components"
 import { MdAdd } from "react-icons/md"
 
+const ErrorAnimation = keyframes`
+  0% {
+    transform: rotate(-2deg);
+  }
+  20% {
+    transform: rotate(1deg);
+  }
+  90% {
+    transform: rotate(0deg);
+  }
+`;
 
+type WrapperProps = {
+    status: string
+}
 
 const ContentWrapper = styled.div`
   width: 100%;
@@ -14,6 +28,12 @@ const ContentWrapper = styled.div`
   box-shadow : rgb(0 0 0 / 15%) 0px 0px 10px;
   box-sizing: border-box;
   pointer-events: visible;
+  ${(props:WrapperProps)=>{
+      if(props.status==="error")
+      return css`
+        animation: ${ErrorAnimation} 0.15s forwards;
+      `
+  }}
 `
 const ImageSelector = styled.input`
   width: 6rem;
@@ -106,11 +126,15 @@ const TextEditor = styled.textarea`
 type Props = {
     onFileChange: (e:ChangeEvent<any>)=>void
     fileInputRef: any
+    textInputRef: any
+    status: string
 } & typeof defaultProps
 
 const defaultProps = {
     onFileChange: (e:ChangeEvent<any>)=>{console.log(e.target.files)},
-    fileInputRef: null
+    fileInputRef: null,
+    textInputRef: null,
+    status: "stable"
 }
 
 const TextBox = (props: Props) => {
@@ -118,12 +142,12 @@ const TextBox = (props: Props) => {
 
     return (
 
-            <ContentWrapper>
+            <ContentWrapper status={props.status}>
                 <ImageSelector ref={props.fileInputRef} id={"editor-image-selector"} type={"file"} accept={".gif, .jpg, .png"} onChange={props.onFileChange} multiple={true}/>
                 <ImageSelectorLabel htmlFor={"editor-image-selector"}>
-                    <MdAdd size={30} color={"#a9a9a9"}/>
+                    <MdAdd size={48} color={"#a9a9a9"}/>
                 </ImageSelectorLabel>
-                <TextEditor spellCheck={false} placeholder={"일기를 작성해주세요"}></TextEditor>
+                <TextEditor ref={props.textInputRef} spellCheck={false} placeholder={"일기를 작성해주세요"}></TextEditor>
             </ContentWrapper>
 
 

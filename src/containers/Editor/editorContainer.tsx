@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useCallback, useEffect, useRef, useState} from "react"
 import Editor from "../../components/Editor";
 import {PostAPI} from "../../api/PostAPI"
+import {useHistory} from "react-router-dom";
 type ImageFilesType = {
     key: string, //파일명
     value: any
@@ -11,8 +12,38 @@ const EditorContainer = () => {
     const [imageUrls, setImageUrls] = useState<string[]>([])
     //File 객체를 담고있음
     const [imageFiles, setImageFiles] = useState<ImageFilesType[]>([])
+    const [textBoxStatus, setTextBoxStatus] = useState("stable")
+    const [locationBoxStatus, setLocationBoxStatus] = useState("stable")
     const [checkedImage, setCheckedImage] = useState<string[]>([])
     const FileInputRef = useRef<any>(null)
+    const TextInputRef = useRef<any>(null)
+    const LocationInputRef = useRef<any>(null)
+    const history = useHistory()
+
+
+    useEffect(()=>{
+        let time: any;
+        if(textBoxStatus==="error"){
+            time = setTimeout(()=>{
+                setTextBoxStatus("stable")
+            }, 200)
+        }
+        return ()=>{
+            clearInterval(time)
+        }
+    }, [textBoxStatus])
+
+    useEffect(()=>{
+        let time: any;
+        if(locationBoxStatus==="error"){
+            time = setTimeout(()=>{
+                setLocationBoxStatus("stable")
+            }, 200)
+        }
+        return ()=>{
+            clearInterval(time)
+        }
+    }, [locationBoxStatus])
 
     useEffect(()=>{
         FileInputRef.current.value = ""
@@ -61,16 +92,32 @@ const EditorContainer = () => {
         })
     }, [])
 
+    const onCancelClick = useCallback(async (e:any)=>{
+        e.preventDefault()
+        history.push("/")
+    }, [history])
+
     const onSuccessClick = useCallback(async (e:any)=>{
         e.preventDefault()
+        if(!TextInputRef.current.value || !imageFiles.length){
+            setTextBoxStatus("error")
+            return
+        }
+        if(!LocationInputRef.current.value){
+            setLocationBoxStatus("error")
+            return
+        }
+        const currentDate = new Date()
         const data = new FormData()
         for(let image in imageFiles){
             console.log(imageFiles[image])
-            data.append("images", imageFiles[image].value, imageFiles[image].key)
+            data.append("images", imageFiles[image].value)
         }
-        data.append("content", "히히히")
-        await PostAPI.uploadPost(data)
-    }, [imageFiles])
+        data.append("content", TextInputRef.current.value)
+        data.append("date", `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`)
+        data.append("location", LocationInputRef.current.value)
+        PostAPI.uploadPost(data).then(()=>history.push("/")).catch(()=>console.log("전송 실패"))
+    }, [imageFiles, history])
 
     return <Editor
         imageUrls={imageUrls}
@@ -78,8 +125,13 @@ const EditorContainer = () => {
         onImageCheck={onImageCheck}
         onDelete={onDelete}
         checkedImage={checkedImage}
+        onCancelClick={onCancelClick}
         onSuccessClick={onSuccessClick}
         fileInputRef = {FileInputRef}
+        textInputRef = {TextInputRef}
+        locationInputRef={LocationInputRef}
+        textBoxStatus={textBoxStatus}
+        locationBoxStatus={locationBoxStatus}
     />
 }
 

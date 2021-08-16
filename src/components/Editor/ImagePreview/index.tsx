@@ -1,6 +1,7 @@
 import React, {memo} from "react"
 import styled from "styled-components"
 import { MdDelete} from "react-icons/md"
+import {AiTwotoneCalendar} from "react-icons/ai"
 
 
 type ImageCheckedProps = {
@@ -28,8 +29,9 @@ const HeadWrapper = styled.div`
   transform: ${(props:ImageEmptyProps)=> props.isImageEmpty ? "translateY(7.25rem)" : "translateY(0)"};
   transition: .2s ease all;
   pointer-events: visible;
-  padding: 0 1rem;
+  padding: 0;
   box-sizing: border-box;
+  user-select: none;
   
   @media(max-width: 500px){
     transform: ${(props:ImageEmptyProps)=> props.isImageEmpty ? "translateY(6.25rem)" : "translateY(0)"};
@@ -50,7 +52,7 @@ const ImageWrapper = styled.div`
   scroll-snap-type: x mandatory;
   box-sizing: border-box;
   transition: .2s ease all;
-  padding: 0 1rem;
+  padding: 0;
 
   @media(max-width: 500px){
     height: 5.3rem;
@@ -93,6 +95,7 @@ const DateWrapper = styled.span`
   display: flex;
   align-items: center;
   pointer-events: visible;
+  gap: 0.25rem;
 `
 
 type ImageBlockProps = {
@@ -140,7 +143,7 @@ const ImagePreview = (props: Props) => {
     return (
         <>
             <HeadWrapper isImageEmpty={props.imageUrls.length===0}>
-                <DateWrapper>2021. 8. 24 화</DateWrapper>
+                <DateWrapper><AiTwotoneCalendar size={16} color={"rgb(52,58,64)"}/>2021. 8. 24 화</DateWrapper>
                 <IconWrapper isChecked={props.checkedImage.length!==0}>
                     <MdDelete onClick={props.onDelete} size={30} color={"#f05650"}/>
                 </IconWrapper>

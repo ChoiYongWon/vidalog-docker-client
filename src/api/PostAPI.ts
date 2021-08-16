@@ -2,7 +2,7 @@ import {HostUrl} from "../.config/constant";
 
 export const PostAPI = {
     uploadPost : (imageBody: any): Promise<any> => {
-        return fetch("http://172.28.18.82:3000/post/uploadPost",{
+        return fetch(HostUrl+"/post/uploadPost",{
             method : "POST",
             headers : {
                "Authorization" : "Bearer "+localStorage.getItem("VAT")
@@ -13,5 +13,17 @@ export const PostAPI = {
             return res
         })
     },
+
+    getPostedDateByYearFromNow: (): Promise<any> => {
+        return fetch(HostUrl+"/post/getPostedDateByYearFromNow",{
+            method : "GET",
+            headers : {
+                "Authorization" : "Bearer "+localStorage.getItem("VAT")
+            }
+        }).then( (res)=>{
+            if(!res.ok) throw res
+            return res
+        })
+    }
 
 }

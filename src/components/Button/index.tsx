@@ -51,7 +51,7 @@ const Button = styled.input`
   
   border : none;
   color : white;
-  font-size : 0.825rem;
+  font-size : 0.85rem;
   display : flex;
   justify-content: center;
   align-items: center;
