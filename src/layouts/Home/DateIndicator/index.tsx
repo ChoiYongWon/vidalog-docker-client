@@ -9,7 +9,7 @@ const Layout = styled.div`
   display : inline-flex;
   flex-direction: column;
   padding : 0 2rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
   box-sizing: border-box;
 `
 
