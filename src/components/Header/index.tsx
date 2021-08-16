@@ -15,6 +15,7 @@ const HeaderComponent = styled.header`
   //box-shadow: rgb(0 0 0 / 10%) 0px 10px 10px;
   align-items: center;
   justify-content: space-between;
+  z-index: 100;
   
   @media(max-width: 1400px){
     width : 900px;
