@@ -47,6 +47,7 @@ const LocationTitle = styled.div`
   justify-content: center;
   align-items: center;
   gap:0.25rem;
+  user-select: none;
   @media(max-width: 500px){
     width: 5rem;
   }
