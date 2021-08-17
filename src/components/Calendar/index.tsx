@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import styled, {keyframes} from "styled-components"
 import {MdKeyboardArrowLeft,MdKeyboardArrowRight} from "react-icons/md"
+import dayjs from 'dayjs'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -41,8 +42,8 @@ const DayBar = styled.div`
   width: 100%;
   height: auto;
   padding: 1rem 0;
-  font-size: 0.875rem;
-  color: rgb(52,58,64);
+  font-size: 1.1rem;
+  color: #24292e;
   display: flex;
 `
 
@@ -101,7 +102,9 @@ const DayImageNumWrapper = styled.span`
 `
 
 const DayNum = styled.span`
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(0.4px);
+  border-radius: 4px;
+  padding: 0 2px;
   font-weight: bold;
 `
 
@@ -130,7 +133,7 @@ const NonFilledItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(52,58,64);
+  color: #24292e;
   font-weight: bold;
   width: 3rem;
   height: 3rem;
@@ -141,6 +144,23 @@ const NonFilledItem = styled.div`
   &:hover{
     background: rgba(0,0,0,0.1);
   }
+
+  @media(max-width: 600px){
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+`
+
+const DisabledNonFilledItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(52,58,64,0.3);
+  font-weight: bold;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+  user-select: none;
 
   @media(max-width: 600px){
     width: 2.25rem;
@@ -189,8 +209,8 @@ type Props = {
 } & typeof defaultProps
 
 const defaultProps = {
-    viewYear: new Date().getFullYear(),
-    viewMonth: new Date().getMonth() + 1,
+    viewYear: dayjs().year(),
+    viewMonth: dayjs().month() + 1,
     loading: false,
     postInfo: {},
     onCalendarPrevClick: ()=> {},
@@ -203,13 +223,14 @@ const Calendar = (props: Props) => {
     const [monthInfo, setMonthInfo] = useState([0,0])
 
     useEffect(()=>{
-        const date = new Date(`${props.viewYear}-${props.viewMonth}-1`)
-        let startDay = date.getDay()
-        date.setMonth(date.getMonth() + 1)
-        date.setDate(date.getDate() - 1)
-        let maxDate = date.getDate()
-        setMonthInfo([startDay, maxDate])
-        console.log(startDay, maxDate)
+        let date = dayjs(`${props.viewYear}-${props.viewMonth}-1`)
+        let startDay = date.day()
+        date = date.add(1, "month").subtract(1, "day")
+        // date.setMonth(date.getMonth() + 1)
+        // date.setDate(date.getDate() - 1)
+        // let maxDate = date.getDate()
+
+        setMonthInfo([startDay, date.date()])
     },[props.viewYear, props.viewMonth])
 
     const days = ["일", "월", "화", "수", "목", "금", "토"]
@@ -228,7 +249,7 @@ const Calendar = (props: Props) => {
                 </MonthTitle>
                 <DayBar>
                     {
-                        days.map((day)=><Day>{day}</Day>)
+                        days.map((day,i)=><Day key={i}>{day}</Day>)
                     }
                 </DayBar>
                 {
@@ -241,18 +262,32 @@ const Calendar = (props: Props) => {
                         <DayWrapper>
                             {
                                 Array(35).fill(1).map((data, i)=>{
-                                    const currentDate = `${props.viewYear}-${props.viewMonth}-${(i - monthInfo[0] + 1)}`
-                                    if(i<monthInfo[0] || (i - monthInfo[0] + 1)>monthInfo[1]) return <DayItem key={i}></DayItem>
-                                    if(!Object.keys(props.postInfo).includes(currentDate)) return (
+                                    const currentFullDate = `${props.viewYear}-${props.viewMonth}-${(i - monthInfo[0] + 1)}`
+                                    const currentDate = (i - monthInfo[0] + 1)
+
+                                    //0~34중에 날짜에 해당안되는것들 제외
+                                    if(i<monthInfo[0] || currentDate>monthInfo[1]) return <DayItem key={i}></DayItem>
+
+                                    //현재 날짜보다 지난 시간 비활성화
+                                    if(dayjs(currentFullDate) > dayjs()) return (
                                         <DayItem key={i}>
-                                            <NonFilledItem onClick={props.onEmptyClick} data-date={currentDate}>{i - monthInfo[0] + 1}</NonFilledItem>
+                                            <DisabledNonFilledItem>{currentDate}</DisabledNonFilledItem>
                                         </DayItem>
                                     )
+
+                                    //일기가 작성되지 않은 공간
+                                    if(!Object.keys(props.postInfo).includes(currentFullDate)) return (
+                                        <DayItem key={i}>
+                                            <NonFilledItem onClick={props.onEmptyClick} data-date={currentFullDate}>{currentDate}</NonFilledItem>
+                                        </DayItem>
+                                    )
+
+                                    //일기가 작성됬을 경우
                                     return (<DayItem key={i}>
                                         <DayImageWrapper>
-                                            <DayImage src={props.postInfo[currentDate]}></DayImage>
+                                            <DayImage src={props.postInfo[currentFullDate]}></DayImage>
                                             <DayImageNumWrapper>
-                                                <DayNum>{i - monthInfo[0] + 1}</DayNum>
+                                                <DayNum>{currentDate}</DayNum>
                                             </DayImageNumWrapper>
                                         </DayImageWrapper>
                                     </DayItem>)

@@ -4,36 +4,37 @@ import Calendar from "../../components/Calendar";
 import {useSetRecoilState} from "recoil";
 import {recoil_Home} from "../../recoils";
 import {useHistory} from "react-router-dom";
+import dayjs from 'dayjs'
 
 
 const CalendarContainer = () => {
 
     const [monthlyPost, setMonthlyPost] = useState({})
-    const [viewDate, setViewDate] = useState<Date>(new Date())
+    const [viewDate, setViewDate] = useState<any>(dayjs())
+    const [viewLoading, setViewLoading] = useState(false)
     const setEditDate = useSetRecoilState(recoil_Home.editDate)
     const history = useHistory()
 
     useEffect(()=>{
-        PostAPI.getPostByMonth(`${viewDate.getFullYear()}-${viewDate.getMonth()+1}`).then(async(res)=>{
+        setViewLoading(true)
+        PostAPI.getPostByMonth(`${viewDate.year()}-${viewDate.month()+1}`).then(async(res)=>{
             const dates: [] = await res.json()
             const result = {}
             dates.forEach((data)=>result[data["date"]] = data["imgUrl"])
             setMonthlyPost(result)
-        })
-    },[viewDate])
+        }).then(()=>setViewLoading(false)).catch((e)=>setViewLoading(false))
+    },[viewDate, setViewLoading])
 
     const onCalendarPrevClick = () => {
-        setViewDate((state)=>{
-            const newDate = new Date(state)
-            newDate.setMonth(newDate.getMonth()-1)
+        setViewDate((state: any)=>{
+            const newDate = dayjs(state).subtract(1, "month")
             return newDate
         })
     }
 
     const onCalendarNextClick = () => {
-        setViewDate((state)=>{
-            const newDate = new Date(state)
-            newDate.setMonth(newDate.getMonth()+1)
+        setViewDate((state: any)=>{
+            const newDate = dayjs(state).add(1, "month")
             return newDate
         })
     }
@@ -49,7 +50,7 @@ const CalendarContainer = () => {
     }
 
     return <>
-        <Calendar viewMonth={viewDate.getMonth()+1} viewYear={viewDate.getFullYear()} postInfo={monthlyPost} onCalendarPrevClick={onCalendarPrevClick} onCalendarNextClick={onCalendarNextClick} onEmptyClick={onEmptyClick}/>
+        <Calendar loading={viewLoading} viewMonth={viewDate.month()+1} viewYear={viewDate.year()} postInfo={monthlyPost} onCalendarPrevClick={onCalendarPrevClick} onCalendarNextClick={onCalendarNextClick} onEmptyClick={onEmptyClick}/>
     </>
 
 

@@ -131,7 +131,7 @@ type Props = {
 } & typeof defaultProps
 
 const defaultProps = {
-    onFileChange: (e:ChangeEvent<any>)=>{console.log(e.target.files)},
+    onFileChange: (e:ChangeEvent<any>)=>{},
     fileInputRef: null,
     textInputRef: null,
     status: "stable"

@@ -2,8 +2,9 @@ import React, {ChangeEvent, useCallback, useEffect, useMemo, useRef, useState} f
 import Editor from "../../components/Editor";
 import {PostAPI} from "../../api/PostAPI"
 import {useHistory} from "react-router-dom";
-import {useRecoilValue} from "recoil";
+import {useRecoilValue, useResetRecoilState} from "recoil";
 import {recoil_Home} from "../../recoils";
+import dayjs from 'dayjs'
 type ImageFilesType = {
     key: string, //파일명
     value: any
@@ -21,8 +22,16 @@ const EditorContainer = () => {
     const TextInputRef = useRef<any>(null)
     const LocationInputRef = useRef<any>(null)
     const editDate = useRecoilValue(recoil_Home.editDate)
+    const resetEditDate = useResetRecoilState(recoil_Home.editDate)
     const history = useHistory()
 
+
+    useEffect(()=>{
+        return ()=>{
+            resetEditDate()
+        }
+        // eslint-disable-next-line
+    }, [])
 
     useEffect(()=>{
         let time: any;
@@ -71,8 +80,8 @@ const EditorContainer = () => {
     const getDateToString = useMemo(()=>{
         const dateTemplate = `${editDate.year}-${editDate.month}-${editDate.date}`
         const days = ["일", "월", "화", "수", "목", "금", "토"]
-        const tmpDate = new Date(dateTemplate)
-        const day =  days[tmpDate.getDay()]
+        const tmpDate = dayjs(dateTemplate)
+        const day =  days[tmpDate.day()]
         return `${editDate.year}. ${editDate.month}. ${editDate.date} ${day}`
     }, [editDate])
 
@@ -120,7 +129,7 @@ const EditorContainer = () => {
         }
         const data = new FormData()
         for(let image in imageFiles){
-            console.log(imageFiles[image])
+            // console.log(imageFiles[image])
             data.append("images", imageFiles[image].value)
         }
         data.append("content", TextInputRef.current.value)

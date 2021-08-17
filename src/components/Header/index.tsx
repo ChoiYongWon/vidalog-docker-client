@@ -96,13 +96,13 @@ const UserIconMenu = styled.li`
 `
 
 type Props = {
+    editEnable: boolean
     onClickUserIcon: ()=>void,
     onCloseUserIcon: ()=>void,
     menuShow: boolean,
     menu: string[],
     menuOnClicks: (()=>void)[],
     editOnClick : ()=>void
-
 }
 
 const Header = (props:Props) => {
@@ -118,7 +118,9 @@ const Header = (props:Props) => {
                 </Link>
             <NavWrapper>
                 <SearchWrapper>
-                    <MdCreate size={30} color={"rgb(52,58,64)"} onClick={props.editOnClick}/>
+                    <MdCreate size={30} color={"rgb(52,58,64)"} onClick={props.editOnClick} style={{
+                        opacity: props.editEnable ? "1" : "0.5"
+                    }}/>
 
                 </SearchWrapper>
                 <UserIconWrapper onClick={props.onClickUserIcon}>

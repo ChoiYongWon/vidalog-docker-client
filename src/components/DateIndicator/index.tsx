@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import React, {useCallback, useEffect, useState} from "react"
 import styled from "styled-components"
 
@@ -56,17 +57,17 @@ const DateIndicator = (props: Props) => {
     const dayOffset = 30;
 
     const getDateInfo = useCallback(()=>{
-        let date = new Date()
+        let date = dayjs().subtract(363+dayjs().day(), "days")
         const monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         let dateList = []
         let monthList = []
-        date.setDate(date.getDate()-(363+date.getDay()+1))
+        // date.setDate(date.getDate()-(363+date.getDay()+1))
         for(let i=0;i<53;i++){
             for(let j=0;j<7;j++){
-                const y = date.getFullYear();
-                const m = date.getMonth() + 1;
-                const d = date.getDate();
-                const day = date.getDay()
+                const y = date.year();
+                const m = date.month() + 1;
+                const d = date.date();
+                const day = date.day()
 
                 if(day===0) {
                     if(d<=7){
@@ -75,8 +76,8 @@ const DateIndicator = (props: Props) => {
                     else monthList.push("")
                 }
                 dateList.push(y+"-"+m+"-"+d)
-                if(date.toLocaleDateString() === new Date().toLocaleDateString()) break
-                date.setDate(date.getDate()+1)
+                if(date.format() === dayjs().format()) break
+                date = date.add(1, "day")
             }
         }
 

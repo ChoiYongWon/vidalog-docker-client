@@ -40,7 +40,7 @@ function App() {
     useEffect(()=>{
         Init.start().then((payload)=>{
             setAuthentication(Auth.LOGIN)
-            console.log("payload", payload)
+            // console.log("payload", payload)
             setUser(payload as User)
 
         }).then(()=>setInitialized(true)).catch(()=>{

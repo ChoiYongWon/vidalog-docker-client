@@ -60,7 +60,7 @@ type Props = {
 const defaultProps = {
     editDate: "",
     imageUrls: [] as string[],
-    onFileChange: (e:ChangeEvent<any>)=>{console.log(e.target.files)},
+    onFileChange: (e:ChangeEvent<any>)=>{},
     onImageCheck: (e:any)=>{},
     onDelete: (e:any)=>{},
     onCancelClick: (e: any)=>{},

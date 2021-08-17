@@ -38,4 +38,16 @@ export const PostAPI = {
         })
     },
 
+    isWritten: (date:any): Promise<any> => {
+        return fetch(HostUrl+"/post/isWritten?date="+date,{
+            method : "GET",
+            headers : {
+                "Authorization" : "Bearer "+localStorage.getItem("VAT")
+            }
+        }).then( (res)=>{
+            if(!res.ok) throw res
+            return res
+        })
+    },
+
 }

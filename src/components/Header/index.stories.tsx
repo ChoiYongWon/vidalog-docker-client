@@ -11,8 +11,9 @@ export default {
 export const Default : React.VFC<{}> = () => {
 
     return <Header
+        editEnable={true}
         menu={["로그아웃"]}
-        menuOnClicks={[()=>console.log("logout")]}
+        menuOnClicks={[()=>{}]}
         menuShow={true}
         onClickUserIcon={()=>{}}
         onCloseUserIcon={()=>{}}
