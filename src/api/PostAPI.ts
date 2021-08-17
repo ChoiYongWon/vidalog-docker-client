@@ -24,6 +24,18 @@ export const PostAPI = {
             if(!res.ok) throw res
             return res
         })
-    }
+    },
+
+    getPostByMonth: (date:any): Promise<any> => {
+        return fetch(HostUrl+"/post/getPostByMonth?date="+date,{
+            method : "GET",
+            headers : {
+                "Authorization" : "Bearer "+localStorage.getItem("VAT")
+            }
+        }).then( (res)=>{
+            if(!res.ok) throw res
+            return res
+        })
+    },
 
 }

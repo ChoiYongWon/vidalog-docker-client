@@ -1,7 +1,9 @@
-import React, {ChangeEvent, useCallback, useEffect, useRef, useState} from "react"
+import React, {ChangeEvent, useCallback, useEffect, useMemo, useRef, useState} from "react"
 import Editor from "../../components/Editor";
 import {PostAPI} from "../../api/PostAPI"
 import {useHistory} from "react-router-dom";
+import {useRecoilValue} from "recoil";
+import {recoil_Home} from "../../recoils";
 type ImageFilesType = {
     key: string, //파일명
     value: any
@@ -18,6 +20,7 @@ const EditorContainer = () => {
     const FileInputRef = useRef<any>(null)
     const TextInputRef = useRef<any>(null)
     const LocationInputRef = useRef<any>(null)
+    const editDate = useRecoilValue(recoil_Home.editDate)
     const history = useHistory()
 
 
@@ -65,6 +68,14 @@ const EditorContainer = () => {
         setCheckedImage([])
     }, [imageFiles])
 
+    const getDateToString = useMemo(()=>{
+        const dateTemplate = `${editDate.year}-${editDate.month}-${editDate.date}`
+        const days = ["일", "월", "화", "수", "목", "금", "토"]
+        const tmpDate = new Date(dateTemplate)
+        const day =  days[tmpDate.getDay()]
+        return `${editDate.year}. ${editDate.month}. ${editDate.date} ${day}`
+    }, [editDate])
+
     const onFileChange = useCallback((e:ChangeEvent<any>) => {
         setImageFiles((state)=>{
             let arr = []
@@ -107,19 +118,19 @@ const EditorContainer = () => {
             setLocationBoxStatus("error")
             return
         }
-        const currentDate = new Date()
         const data = new FormData()
         for(let image in imageFiles){
             console.log(imageFiles[image])
             data.append("images", imageFiles[image].value)
         }
         data.append("content", TextInputRef.current.value)
-        data.append("date", `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`)
+        data.append("date", `${editDate.year}-${editDate.month}-${editDate.date}`)
         data.append("location", LocationInputRef.current.value)
         PostAPI.uploadPost(data).then(()=>history.push("/")).catch(()=>console.log("전송 실패"))
-    }, [imageFiles, history])
+    }, [imageFiles, history, editDate])
 
     return <Editor
+        editDate={getDateToString}
         imageUrls={imageUrls}
         onFileChange={onFileChange}
         onImageCheck={onImageCheck}

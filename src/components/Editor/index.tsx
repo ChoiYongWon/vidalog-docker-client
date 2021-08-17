@@ -42,6 +42,7 @@ const ButtonWrapper = styled.div`
 `
 
 type Props = {
+    editDate: string,
     imageUrls: string[]
     onFileChange: (e:ChangeEvent<any>)=>void
     onImageCheck: (e:any)=>void
@@ -57,6 +58,7 @@ type Props = {
 } & typeof defaultProps
 
 const defaultProps = {
+    editDate: "",
     imageUrls: [] as string[],
     onFileChange: (e:ChangeEvent<any>)=>{console.log(e.target.files)},
     onImageCheck: (e:any)=>{},
@@ -76,7 +78,7 @@ const Editor = (props: Props) => {
 
     return (
         <Wrapper isImageEmpty={props.imageUrls.length===0}>
-            <ImagePreview imageUrls={props.imageUrls} onDelete={props.onDelete} checkedImage={props.checkedImage} onImageCheck={props.onImageCheck}/>
+            <ImagePreview editDate={props.editDate} imageUrls={props.imageUrls} onDelete={props.onDelete} checkedImage={props.checkedImage} onImageCheck={props.onImageCheck}/>
             <TextBox status={props.textBoxStatus} onFileChange={props.onFileChange} fileInputRef={props.fileInputRef} textInputRef={props.textInputRef}/>
             <Location status={props.locationBoxStatus} locationInputRef={props.locationInputRef}/>
             <ButtonWrapper>

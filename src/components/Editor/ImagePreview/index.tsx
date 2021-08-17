@@ -128,13 +128,15 @@ type Props = {
     onImageCheck: (e:any)=>void
     onDelete: (e:any)=>void
     checkedImage: string[]
+    editDate: string
 } & typeof defaultProps
 
 const defaultProps = {
     imageUrls: [] as string[],
     onImageCheck: (e:any)=>{},
     onDelete: (e:any)=>{},
-    checkedImage: [] as string[]
+    checkedImage: [] as string[],
+    editDate: ""
 }
 
 const ImagePreview = (props: Props) => {
@@ -143,7 +145,7 @@ const ImagePreview = (props: Props) => {
     return (
         <>
             <HeadWrapper isImageEmpty={props.imageUrls.length===0}>
-                <DateWrapper><AiTwotoneCalendar size={16} color={"rgb(52,58,64)"}/>2021. 8. 24 화</DateWrapper>
+                <DateWrapper><AiTwotoneCalendar size={16} color={"rgb(52,58,64)"}/>{props.editDate}</DateWrapper>
                 <IconWrapper isChecked={props.checkedImage.length!==0}>
                     <MdDelete onClick={props.onDelete} size={30} color={"#f05650"}/>
                 </IconWrapper>

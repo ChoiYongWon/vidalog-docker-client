@@ -25,6 +25,14 @@ import {
     user
 } from "./user"
 
+import {
+    editDate
+} from "./home";
+
+export const recoil_Home = {
+    editDate
+}
+
 export const recoil_User = {
     user
 }
