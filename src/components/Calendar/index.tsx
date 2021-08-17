@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 
   @media(max-width: 600px){
     box-shadow: none;
-    padding: 0.5rem;
+    padding: 0;
   }
   
 `
