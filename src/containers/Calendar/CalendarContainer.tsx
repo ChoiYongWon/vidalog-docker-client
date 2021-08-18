@@ -17,6 +17,7 @@ const CalendarContainer = () => {
     const history = useHistory()
 
     useEffect(()=>{
+        setViewLoading(true)
         PostAPI.getPostByMonth(`${viewDate.year()}-${viewDate.month()+1}`).then(async(res)=>{
             const dates: [] = await res.json()
             const result: any = {}
@@ -24,7 +25,7 @@ const CalendarContainer = () => {
             setMonthlyPost(result)
             return dates.map((i)=>i["date"])
         }).then((date:string[])=>{
-            if(date.length>0) setViewLoading(true)
+            if(date.length===0){ setViewLoading(false); return}
 
             const imageObject:any = {}
             date.forEach((i:string)=>imageObject[i] = new Promise(()=>{}))

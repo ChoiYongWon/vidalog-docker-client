@@ -63,12 +63,12 @@ const Day = styled.div`
 `
 
 type DayWrapperProps = {
-    loading : boolean
+    $loading : boolean
 }
 
 const DayWrapper = styled.div`
-  opacity: ${(props:DayWrapperProps)=>props.loading ? "0" : "1"};
-  visibility: ${(props:DayWrapperProps)=>props.loading ? "hidden" : "visible"};
+  opacity: ${(props:DayWrapperProps)=>props.$loading ? "0" : "1"};
+  visibility: ${(props:DayWrapperProps)=>props.$loading ? "hidden" : "visible"};
   width: 100%;
   height: auto;
   display: flex;
@@ -270,7 +270,7 @@ const Calendar = (props: Props) => {
 
                         : null
                 }
-                <DayWrapper loading={props.loading}>
+                <DayWrapper $loading={props.loading}>
                     {
                         Array(35).fill(1).map((data, i)=>{
                             const currentFullDate = `${props.viewYear}-${props.viewMonth}-${(i - monthInfo[0] + 1)}`
