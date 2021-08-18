@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
   box-shadow : rgb(0 0 0 / 15%) 0px 0px 10px;
   border-radius: 0.5rem;
+  position: relative;
 
   @media(max-width: 600px){
     box-shadow: none;
@@ -61,7 +62,13 @@ const Day = styled.div`
   }
 `
 
+type DayWrapperProps = {
+    loading : boolean
+}
+
 const DayWrapper = styled.div`
+  opacity: ${(props:DayWrapperProps)=>props.loading ? "0" : "1"};
+  visibility: ${(props:DayWrapperProps)=>props.loading ? "hidden" : "visible"};
   width: 100%;
   height: auto;
   display: flex;
@@ -182,11 +189,12 @@ const LoadingAnimation = keyframes`
 
 const LoadingFallBackWrapper = styled.div`
   width: 100%;
-  height: 22.5rem;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  position: absolute;
+  left: 0;
   @media(max-width: 600px){
     height: 13.75rem;
   }
@@ -206,6 +214,7 @@ type Props = {
     onCalendarPrevClick: ()=>void
     onCalendarNextClick: ()=>void
     onEmptyClick: (e:any)=>void
+    onImageLoad: (e:any)=>void
 } & typeof defaultProps
 
 const defaultProps = {
@@ -215,7 +224,8 @@ const defaultProps = {
     postInfo: {},
     onCalendarPrevClick: ()=> {},
     onCalendarNextClick: ()=> {},
-    onEmptyClick: (e:any)=>{}
+    onEmptyClick: (e:any)=>{},
+    onImageLoad: (e:any)=>{}
 }
 
 const Calendar = (props: Props) => {
@@ -258,43 +268,43 @@ const Calendar = (props: Props) => {
                             <LoadingFallBack>로딩중...</LoadingFallBack>
                         </LoadingFallBackWrapper>
 
-                        :
-                        <DayWrapper>
-                            {
-                                Array(35).fill(1).map((data, i)=>{
-                                    const currentFullDate = `${props.viewYear}-${props.viewMonth}-${(i - monthInfo[0] + 1)}`
-                                    const currentDate = (i - monthInfo[0] + 1)
-
-                                    //0~34중에 날짜에 해당안되는것들 제외
-                                    if(i<monthInfo[0] || currentDate>monthInfo[1]) return <DayItem key={i}></DayItem>
-
-                                    //현재 날짜보다 지난 시간 비활성화
-                                    if(dayjs(currentFullDate) > dayjs()) return (
-                                        <DayItem key={i}>
-                                            <DisabledNonFilledItem>{currentDate}</DisabledNonFilledItem>
-                                        </DayItem>
-                                    )
-
-                                    //일기가 작성되지 않은 공간
-                                    if(!Object.keys(props.postInfo).includes(currentFullDate)) return (
-                                        <DayItem key={i}>
-                                            <NonFilledItem onClick={props.onEmptyClick} data-date={currentFullDate}>{currentDate}</NonFilledItem>
-                                        </DayItem>
-                                    )
-
-                                    //일기가 작성됬을 경우
-                                    return (<DayItem key={i}>
-                                        <DayImageWrapper>
-                                            <DayImage src={props.postInfo[currentFullDate]}></DayImage>
-                                            <DayImageNumWrapper>
-                                                <DayNum>{currentDate}</DayNum>
-                                            </DayImageNumWrapper>
-                                        </DayImageWrapper>
-                                    </DayItem>)
-                                })
-                            }
-                        </DayWrapper>
+                        : null
                 }
+                <DayWrapper loading={props.loading}>
+                    {
+                        Array(35).fill(1).map((data, i)=>{
+                            const currentFullDate = `${props.viewYear}-${props.viewMonth}-${(i - monthInfo[0] + 1)}`
+                            const currentDate = (i - monthInfo[0] + 1)
+
+                            //0~34중에 날짜에 해당안되는것들 제외
+                            if(i<monthInfo[0] || currentDate>monthInfo[1]) return <DayItem key={i}></DayItem>
+
+                            //현재 날짜보다 지난 시간 비활성화
+                            if(dayjs(currentFullDate) > dayjs()) return (
+                                <DayItem key={i}>
+                                    <DisabledNonFilledItem>{currentDate}</DisabledNonFilledItem>
+                                </DayItem>
+                            )
+
+                            //일기가 작성되지 않은 공간
+                            if(!Object.keys(props.postInfo).includes(currentFullDate)) return (
+                                <DayItem key={i}>
+                                    <NonFilledItem onClick={props.onEmptyClick} data-date={currentFullDate}>{currentDate}</NonFilledItem>
+                                </DayItem>
+                            )
+
+                            //일기가 작성됬을 경우
+                            return (<DayItem key={i}>
+                                <DayImageWrapper>
+                                    <DayImage onLoad={props.onImageLoad} data-date={currentFullDate} src={props.postInfo[currentFullDate]}></DayImage>
+                                    <DayImageNumWrapper>
+                                        <DayNum>{currentDate}</DayNum>
+                                    </DayImageNumWrapper>
+                                </DayImageWrapper>
+                            </DayItem>)
+                        })
+                    }
+                </DayWrapper>
             </Wrapper>
         </>
 
