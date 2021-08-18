@@ -195,9 +195,6 @@ const LoadingFallBackWrapper = styled.div`
   align-items: center;
   position: absolute;
   left: 0;
-  @media(max-width: 600px){
-    height: 13.75rem;
-  }
 `
 
 const LoadingFallBack = styled.div`
